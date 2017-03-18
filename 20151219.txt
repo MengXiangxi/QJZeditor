@@ -1,104 +1,123 @@
-  ######################################################
-  è¯´æ˜Žï¼šè¿™æ˜¯ä¸€ä¸ªæµ‹è¯•æ–‡ä»¶ã€‚ç¼–ç æ— ç‰¹æ®Šè¦æ±‚ã€‚
-  ######################################################
-å‘ä¿¡äºº: kanez (Z107|å°å¡|åæ‹¥äº¬ä¹), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 8@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥19:29:23 æ˜ŸæœŸå…­), è½¬ä¿¡
+·¢ÐÅÈË: kanez (Z107|Ð¡¿¨|×øÓµ¾©¾Å), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 8@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ19:29:23 ÐÇÆÚÁù), ×ªÐÅ
 
 Courses
-å››å…­çº§åˆšèµ°ï¼Œå¤§è‹±åˆæ¥å•¦ã€‚
+ËÄÁù¼¶¸Õ×ß£¬´óÓ¢ÓÖÀ´À²¡£
 --
 
 
-å‘ä¿¡äºº: rhyshm (å°å¾·è¥¿åŠ æ²¹ï¼|å†™æ‰‹), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 2@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥19:41:38 æ˜ŸæœŸå…­), è½¬ä¿¡
+·¢ÐÅÈË: rhyshm (Ð¡µÂÎ÷¼ÓÓÍ£¡|Ð´ÊÖ), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 2@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ19:41:38 ÐÇÆÚÁù), ×ªÐÅ
 
 ChongQing
-é‡åº†ç‰ˆèšåƒæ—¥æ–™ï¼Œæ²³åŒ—ç‰ˆå¤§æ¥æ€»ç»“ã€‚
+ÖØÇì°æ¾Û³ÔÈÕÁÏ£¬ºÓ±±°æ´óÀ´×Ü½á¡£
 --
 
-å‘ä¿¡äºº: richardo (ç‹®ç‰™|captain|), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 5@1219 kong
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥20:43:20 æ˜ŸæœŸå…­), ç«™å†…ä¿¡ä»¶
+·¢ÐÅÈË: richardo (Ê¨ÑÀ|captain|), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 5@1219k
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ20:43:20 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
 
-çˆ±å³å°†æŽ¥å—æˆ‘ç”³è¯·çš„åŸ¹æ•™æŽˆ~~
-
---
-
-å‘ä¿¡äºº: peiyangium (Appendisiger viridulus Zou et Li), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 4@1219 cyblocker
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:22:02 æ˜ŸæœŸå…­), ç«™å†…ä¿¡ä»¶
-
-Notebook
-æ˜¾ç¤ºå™¨ï¼Œçƒ­æ’æ‹”ï¼Œ
-å®Œå…¨æ”¯æŒå‹¿å®³æ€•ã€‚
+°®¼´½«½ÓÊÜÎÒÉêÇëµÄÅà½ÌÊÚ~~
 
 --
 
-å‘ä¿¡äºº: lnss (æï½žï½ž), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 9@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:22:26 æ˜ŸæœŸå…­), ç«™å†…ä¿¡ä»¶
+·¢ÐÅÈË: peiyangium (Appendisiger viridulus Zou et Li), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 4@1219 cyblocker
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:22:02 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
+
+Notebook/Bridge/CongQing/Linux
+ÏÔÊ¾Æ÷£¬ÈÈ²å°Î£¬
+ÍêÈ«Ö§³ÖÎðº¦ÅÂ¡£
+
+--
+
+·¢ÐÅÈË: lnss (Äó¡«¡«), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 9@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:22:26 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
 
 Bridge
-åä¼šå²å¤§äº‹ä»¶ï¼Œå›žé¡¾2011-12ã€‚
+Ð­»áÊ·´óÊÂ¼þ£¬»Ø¹Ë2011-12¡£
 
 --
-
-å‘ä¿¡äºº: Vendor (èƒ½æ—©èµ·çš„èŒƒäºŒé’å¹´), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 1@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:31:43 æ˜ŸæœŸå…­), ç«™å†…ä¿¡ä»¶
+·¢ÐÅÈË: Vendor (ÄÜÔçÆðµÄ·¶¶þÇàÄê), ÐÅÇø: WMZhanKan
+±ê  Ìâ: Hot@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:31:43 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
 
 Auditory
-è§‚å½±çŽ¯å¢ƒæœ‰äº›åµï¼Œå°±åˆ°ç‰ˆä¸Šæ¥åæ§½ã€‚
-_æ–‡æ˜Žè§‚å½±
+¹ÛÓ°»·¾³ÓÐÐ©³³£¬¾Íµ½°æÉÏÀ´ÍÂ²Û¡£
+_ÎÄÃ÷¹ÛÓ°¡£
 
 CCME
-_ççˆ±ç”Ÿå‘½ï¼Œæ³¨æ„å®‰å…¨ã€‚
+_Õä°®ÉúÃü£¬×¢Òâ°²È«¡£
+
+EECS/Chemistry
+Ëæ»ú×÷ÒµËæ»ú½»£¬Öú½ÌÄã±ð¿ªÍæÐ¦¡£
+
+--
+·¢ÐÅÈË: Vendor (ÄÜÔçÆðµÄ·¶¶þÇàÄê), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 1@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:31:43 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
+
+Auditory
+¹ÛÓ°»·¾³ÓÐÐ©³³£¬¾Íµ½°æÉÏÀ´ÍÂ²Û¡£
+_ÎÄÃ÷¹ÛÓ°
+
+CCME
+_Õä°®ÉúÃü£¬×¢Òâ°²È«¡£
 
 EECS
-éšæœºä½œä¸šéšæœºäº¤ï¼ŒåŠ©æ•™ä½ åˆ«å¼€çŽ©ç¬‘ã€‚
+Ëæ»ú×÷ÒµËæ»ú½»£¬Öú½ÌÄã±ð¿ªÍæÐ¦
 
 --
 
-å‘ä¿¡äºº: Vendor (èƒ½æ—©èµ·çš„èŒƒäºŒé’å¹´), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 6@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:33:09 æ˜ŸæœŸå…­), ç«™å†…ä¿¡ä»¶
+·¢ÐÅÈË: Vendor (ÄÜÔçÆðµÄ·¶¶þÇàÄê), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 6@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:33:09 ÐÇÆÚÁù), Õ¾ÄÚÐÅ¼þ
 
 losefat
-æœ€å¥½å°±æ˜¯å¿™æˆç‹—ï¼Œè¿™æ ·å‡è‚¥ä¸å‘æ„ã€‚
+×îºÃ¾ÍÊÇÃ¦³É¹·£¬ÕâÑù¼õ·Ê²»·¢³î¡£
 
 PetsEden
-æƒ³ç»™å®¶é•¿ä¹°å® ç‰©ï¼Œä½ è¯´æˆ‘è¯¥ä¹°å•¥é€ï¼Ÿ
+Ïë¸ø¼Ò³¤Âò³èÎï£¬ÄãËµÎÒ¸ÃÂòÉ¶ËÍ£¿
 
 Radio
-æ–°å¹´å¹¿æ’­ï¼Œç­‰ä½ ç‚¹é”…ï¼ˆæ­Œï¼‰ã€‚
-ç°ï¼šå¿«æ¥ç‚¹æ­Œå¿«æ¥ç‚¹æ­Œå•Šï¼
+ÐÂÄê¹ã²¥£¬µÈÄãµã¹ø£¨¸è£©¡£
+_¿ìÀ´µã¸è¿ìÀ´µã¸è°¡£¡
 
-AngelaChang
-ä½ ã€Šè¿˜è®°å¾—å—ã€‹ï¼Œè®°å¿†é‡Œçš„ç‰µæŒ‚ã€‚
+Admin3_Office
+Äã¡¶»¹¼ÇµÃÂð¡·£¬¼ÇÒäÀïµÄÇ£¹Ò¡£
 
 --
-å‘ä¿¡äºº: peiyangium (Appendisiger viridulus Zou et Li), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 3@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:38:30 æ˜ŸæœŸå…­), è½¬ä¿¡
+·¢ÐÅÈË: peiyangium (Appendisiger viridulus Zou et Li), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 3@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:38:30 ÐÇÆÚÁù), ×ªÐÅ
 
-ElecDIY
-ï¼¦ï¼°ï¼§ï¼¡æ—§äº‹é‡æï¼Œèµ›çµæ€ç½‘å‹å¤§ç§€ï¼©ï¼¤ã€‚
+ElecDIY/Admin3_Office
+£Æ£Ð£Ç£Á¾ÉÊÂÖØÌá£¬ÈüÁéË¼ÍøÓÑ´óÐã£É£Ä¡£
 --
 
-å‘ä¿¡äºº: peiyangium (Appendisiger viridulus Zou et Li), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 0@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:50:27 æ˜ŸæœŸå…­), è½¬ä¿¡
+·¢ÐÅÈË: peiyangium (Appendisiger viridulus Zou et Li), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 0@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:50:27 ÐÇÆÚÁù), ×ªÐÅ
 
 HappyNewYear
-é‡Œåº”å¤–åˆï¼Œè­¦é•¿ä½œå¥¸çŠ¯ç§‘ã€‚
-è´Ÿéš…é¡½æŠ—ï¼Œï¼°ï¼°èµ¶å¿«å¥‰ä¸Šã€‚
+ÀïÓ¦ÍâºÏ£¬¾¯³¤×÷¼é·¸¿Æ¡£
+¸ºÓçÍç¿¹£¬£Ð£Ð¸Ï¿ì·îÉÏ¡£
 --
-å‘ä¿¡äºº: peiyangium (Appendisiger viridulus Zou et Li), ä¿¡åŒº: WMZhanKan
-æ ‡  é¢˜: 7@1219
-å‘ä¿¡ç«™: åŒ—å¤§æœªåç«™ (2015å¹´12æœˆ19æ—¥22:38:30 æ˜ŸæœŸå…­), è½¬ä¿¡
+·¢ÐÅÈË: peiyangium (Appendisiger viridulus Zou et Li), ÐÅÇø: WMZhanKan
+±ê  Ìâ: 7@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ22:38:30 ÐÇÆÚÁù), ×ªÐÅ
 
 ElecDIY
-ï¼¦ï¼°ï¼§ï¼¡æ—§äº‹é‡æï¼Œèµ›çµæ€ç½‘å‹å¤§ç§€ï¼©ï¼¤ã€‚
+£Æ£Ð£Ç£Á¾ÉÊÂÖØÌá£¬ÈüÁéË¼ÍøÓÑ´óÐã£É£Ä¡£
+--
+
+·¢ÐÅÈË: rhyshm (Ð¡µÂÎ÷¼ÓÓÍ£¡|Ð´ÊÖ), ÐÅÇø: WMZhanKan
+±ê  Ìâ: C@1219
+·¢ÐÅÕ¾: ±±´óÎ´ÃûÕ¾ (2015Äê12ÔÂ19ÈÕ19:41:38 ÐÇÆÚÁù), ×ªÐÅ
+
+ChongQing
+ÖØÇì°æ¾Û³ÔÈÕÁÏ£¬ºÓ±±°æ´óÀ´×Ü½á¡£
 --
