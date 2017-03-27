@@ -9,7 +9,7 @@ Please contact the developer for futher information. Thank you!
 
 原先GitHub对于中文编码和Windows换行模式不甚支持，以至于无法使用这一平台。近来GitHub改进了这方面的支持，因此将历史代码迁移与此。
 
-由于种种原因，本项目原则上已经停止开发。一部分因为种种原因不能支持的模块被放在了`Old`文件夹里。
+由于种种原因，本项目原则上已经停止开发。
 
 ## 对主编
 请先阅读`Readme.txt`中的内容。
