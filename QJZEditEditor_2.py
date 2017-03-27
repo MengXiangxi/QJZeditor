@@ -41,7 +41,7 @@ if os.path.isfile('Editors.ans'):
     raw_input('')
 else:
     editorlist = open(os.path.join('Editors.ans'),'w')
-    editorlist.write('?\r\n?\r\n') # 写入前两行
+    editorlist.write('?\r\n?\r\n0 0\r\n0 0\r\n0 0\r\n0 0\r\n0 0') # 写入前七行
     editorlist.close()
     print(u'不存在Editors.ans。已经新建了一个。')
 
