@@ -1,6 +1,10 @@
-请运行QJZEditor_2_3_1.py。
-原QJZAddEditor_0.py由于BBS网页版改版，链接失效，如非特别确定请勿运行，否则会造成严重后果。本文件和部分其他历史文件提供备考。
+然后请对照QJZEditor_2_2.pdf上的说明，首先配置安装环境。
+
+建议首先运行QJZEditEditor_2.py更新排班表和人员信息。该程序已经暂时修复。
+
+然后请对照QJZEditor_2_2.pdf上的说明，运行QJZEditor_2_3_1.py。
+
 从即日起请勿使用历史版本的文件。
 
 peiyangium
-20170207
+20170327
