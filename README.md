@@ -18,6 +18,8 @@ Please contact the developer for futher information. Thank you!
 
 [点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/master.zip)
 
+**注意！解压缩的目标文件路径中不能有中文。建议仅使用大小写罗马字母和下划线命名文件夹，且不要用空格。**
+
 ## 注意事项
 以下注意事项来自北大未名BBS内部版面。因为迁移程序的原因转录于此。
 
