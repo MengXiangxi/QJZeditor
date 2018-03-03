@@ -1,6 +1,6 @@
 # QJZeditor
 
-This is a project for the BBS site in Peking University, BDWM BBS. For the sake of the target users, all documentations as well as code comments and outputs are all in Chinese.
+This is a project for the BBS site in Peking University, BDWM BBS. For the sake of the target users, all documentations as well as code comments and outputs are in Chinese.
 
 Please contact the developer for futher information. Thank you!
 
@@ -17,6 +17,8 @@ Please contact the developer for futher information. Thank you!
 请按照`QJZeditor_2_2.pdf`中的使用方法进行操作。注意[该文档](https://github.com/MengXiangxi/QJZeditor/wiki/QJZEditor-2.2-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)已经过时了，但是作者一直没有更新。实际上这个文档仍然很有参考价值。
 
 [点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/master.zip)
+
+**注意！解压缩的目标文件路径中不能有中文。建议仅使用大小写罗马字母和下划线命名文件夹，且不要用空格。**
 
 ## 注意事项
 以下注意事项来自北大未名BBS内部版面。因为迁移程序的原因转录于此。
