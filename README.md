@@ -7,7 +7,7 @@ Please contact the developer for futher information. Thank you!
 ## 已知错误
 
 * **解压缩的目标文件路径中不能有中文。建议仅使用大小写罗马字母和下划线命名文件夹，且不要用空格。**
-* **配合2018年的`QJZansisource.ans`，在三行模式显示采编名单时，第三行会出现一个额外的空格。**
+* **~~配合2018年的`QJZansisource.ans`，在三行模式显示采编名单时，第三行会出现一个额外的空格。~~** 2019版已经修复这一问题。
 
 ## 说明
 
