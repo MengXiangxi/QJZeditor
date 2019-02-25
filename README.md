@@ -24,7 +24,7 @@ Please contact the developer for futher information. Thank you!
 
 请按照`QJZeditor_2_2.pdf`中的使用方法进行操作。注意[该文档](https://github.com/MengXiangxi/QJZeditor/wiki/QJZEditor-2.2-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)已经过时了，但是作者一直没有更新。实际上这个文档仍然很有参考价值。
 
-[点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/master.zip)
+[点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/py3k.zip)
 
 ## 注意事项
 
