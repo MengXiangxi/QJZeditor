@@ -6,9 +6,13 @@
 # 我还给你用中文注释了，我简直太贴心了啊
 # 作者孟祥溪，mengxiangxibme^O^gmail.com
 # last commit: 20190225
+#
+##################### 注意！#######################
+# 该版本可用于Python 3，但未经严格测试，只作应急使用 #
+##################################################
 
 ###版本号###
-ver = '2.3.1'
+ver = '2.3.1 py3k'
 ###版本号###
 import os
 import codecs # 用于处理文本编码
@@ -22,7 +26,7 @@ import datetime
 # 这个函数用来修改日期
 def datechange():
     print( u'输入新的日期，格式为YYYYMMDD：')
-    QJZyearmonday = raw_input('') # 暂存日期，后面的if都是差错用的，因为我不习惯try
+    QJZyearmonday = input('') # 暂存日期，后面的if都是差错用的，因为我不习惯try
     if not QJZyearmonday.isdigit(): # 检查是不是纯数字
         print( u'YYYYMMDD就是年月日8个数字连起来，中间不能用字符或符号，明白？重输吧。')
         return 'y'
@@ -50,7 +54,7 @@ def datechange():
     print( u"修改后的日期是：\n"+str(QJZyear)+u"年"+str(QJZmon)+\
           u"月"+str(QJZmday)+u"日，"+get_week_day(datetime.date(QJZyear, QJZmon, QJZmday))\
           +u"\n再看一眼没错吧？错了重新输入，别让校对捉住了。重来么？（yes/No）")
-    quitornot = raw_input('')# 判断是否退出
+    quitornot = input('')# 判断是否退出
     quitornot += '_' # 允许用户直接按Enter键跳过
     if quitornot[0] == 'y' or quitornot[0] == 'Y':
         return 'y'
@@ -97,7 +101,7 @@ def sepaFile(filename):
             backup.write(i)
         oriFile.close()
         print( u'已将原文档备份为'+filename+u'uft8.txt，存储在同一目录下。按任意键继续。')
-        raw_input('')
+        input('')
         backup.close()
         seedconvert = [] # 放置转码后的内容
         if termmode == 'w':
@@ -205,7 +209,7 @@ def colorTitle(brdtitle, grp):
         'C': '36',
         'G': '35',
         }
-    return u'  \u001B[1;'+titledict.get(grp)+u'm\u25B3 '+brdtitle
+    return u'  \u001B[1;'+str(titledict.get(grp))+u'm\u25B3 '+brdtitle.decode()
 
 # 给出了各分区在QJZansisource.ans里的偏移量。
 def fp2dict(num):
@@ -261,7 +265,7 @@ def chkpunct(chkstr, grp):
         print( chkstr[1:] )# 不包含预留的m或_
         print( u'按任意键继续。')
         print( u'####################')
-        raw_input('')
+        input('')
 
 def chkboardsingle(boardname, grp):
     if pubboarddict.get(boardname,0) == 0:
@@ -272,7 +276,7 @@ def chkboardsingle(boardname, grp):
             print( u'在版名列表中未找到该版名。')
             print( u'按任意键继续。')
             print( u'####################')
-            raw_input('')
+            input('')
         elif priboarddict[boardname] == grp:
             print( u'####################')
             print( u'警告！请注意'+grp+u'区以下版面：')
@@ -280,7 +284,7 @@ def chkboardsingle(boardname, grp):
             print( u'属于未登录不可见分区。')
             print( u'按任意键继续。')
             print( u'####################')
-            raw_input('')
+            input('')
         elif grp != 'H':
             print( u'####################')
             print( u'警告！请注意'+grp+u'区以下版面：')
@@ -288,7 +292,7 @@ def chkboardsingle(boardname, grp):
             print( u'属于未登录不可见分区且属于'+priboarddict[boardname]+u'区。')
             print( u'按任意键继续。')
             print( u'####################')
-            raw_input('')
+            input('')
     elif pubboarddict[boardname] == grp or grp == 'H':
         return
     else:
@@ -298,20 +302,20 @@ def chkboardsingle(boardname, grp):
         print( u'其分区实际上应为'+pubboarddict[boardname]+u'区。')
         print( u'按任意键继续。')
         print( u'####################')
-        raw_input('')
+        input('')
 
 def chkboardname(chkboardname, grp):
     boardname = chkboardname.strip()
     numslash = 0
     for i in boardname:
-        if re.match(r'[A-Za-z0-9/\_]+',i) == None:
+        if re.match(r'[A-Za-z0-9/\_]+',chr(i)) == None:
             print( u'####################')
             print( u'警告！请注意'+grp+u'区以下版名是否含有特殊字符：')
             print( boardname )
             print( u'只能出现大小写英文字母、数字、下划线和“/”，不能出现空格等字符。')
             print( u'按任意键继续。')
             print( u'####################')
-            raw_input('')
+            input('')
         if i == '/':
             numslash += 1
     if numslash == 0:
@@ -330,7 +334,7 @@ def getBody(grp, processFile, bodyfile, ansitemp, termmode):
     bodylinenum = 3 # 设置初始偏移量，注意第一行读一个空行，方面下一步判断版面标题
     bodyutf = [] # 第二步暂存的容器
     # 每个分区全部正文读入bodyutf的容器
-    while bodyraw[bodylinenum].encode('utf8').strip() != '--': # 判断结尾
+    while bodyraw[bodylinenum].strip() != '--': # 判断结尾
         bodyutf.append(bodyraw[bodylinenum].strip().encode('utf8'))
         bodylinenum += 1
     bodylinenum = len(bodyutf) # 方便倒着读取
@@ -351,7 +355,7 @@ def getBody(grp, processFile, bodyfile, ansitemp, termmode):
         if thistitle == 1: # 处理这一行的版名
             chkboardname(bodyutf[bodylinenum], grp)
             bodyutf[bodylinenum] = colorTitle(bodyutf[bodylinenum],grp) #调用函数
-        elif bodyutf[bodylinenum][0:1] == '_': # 处理灰文字，标志符是“_”
+        elif bodyutf[bodylinenum].decode()[0:1] == '_': # 处理灰文字，标志符是“_”
             chkpunct(bodyutf[bodylinenum].decode('utf-8'), grp) # 检查标点
             bodyutf[bodylinenum] = u'     \u001B[0;37m'+bodyutf[bodylinenum].decode('utf8')[1:]
         else: # 不是版名、不是灰文字，则一定是正常文字
@@ -393,7 +397,7 @@ def coloring(editorname):
         return u'\u001B[1;32m'+editorname+u'\u001B[m'
     else:
         print( u'居然有一个ID并不在列表中，极有可能是Editor.ans文件需要维护了。按任意键退出吧。')
-        raw_input('')
+        input('')
         sys.exit()
 
 # 检查对应ID是否存在，并转化成正确的大小写
@@ -557,7 +561,7 @@ if os.path.isfile('boardlist.csv'):
 else:
     print(u'没有找到boardlist.csv，请运行QJZboardlist_x_x.py程序获取版名列表。')
     print(u'按任意键退出。')
-    raw_input('')
+    input('')
     sys.exit()
 
 ###***###初始化###***###
@@ -566,25 +570,25 @@ if termmode == '?': # termmode为“?”，说明未经初始化
     print( u'欢迎使用QJZEditor '+ver+u'。这可能是你首次运行本程序，下面我们进行简单的初始化。')
     print( u'如需更改初始化参数，请参考文档。初始化共二步，首先请设置主编ID。')
     print( u'如果希望每次自行输入主编ID，请输入数字‘0’。下面输入主编ID或0：')
-    initchiefname = raw_input('')
+    initchiefname = input('')
     if initchiefname == '0':
         chiefedname = '0' # 后面会检测，如果是空行则每次输入主编ID
     else:
         while (converteditor(initchiefname) == '0'): # 对着编辑字典查一下
             print( u'没有找到这个主编，请核对更改或在版上反映该问题。')
             print( u'请输入更改后的主编ID：')
-            initchiefname = raw_input('')
+            initchiefname = input('')
             if initchiefname == '0':
                 break
         chiefedname = converteditor(initchiefname)
     print( u'好厉害！你已经完成了第一步啦！下面是第二步，选择一个你常用的Telnet终端（Term）。')
     print( u'你有三个选项：FTerm（F）、CTerm（C）或者Welly（W）。')
     print( u'下面请输入你常用Term的名称（英文）或首字母：')
-    termname = raw_input('')
+    termname = input('')
     termname += '_'
     while not(termname[0] in ['c','C','w','W','f','F']): # 只考虑首字母
         print( u'不是很懂你输入的是啥。再重新输入一遍吧。')
-        termname = raw_input('')
+        termname = input('')
         termname += '_'
     if termname[0] == 'c' or termname[0] == 'C':
         termmode = 'c'
@@ -605,14 +609,14 @@ if termmode == '?': # termmode为“?”，说明未经初始化
         print( u'默认的终端是：Welly。')
     else:
         print(  u'Term选择遇到未知错误（2），请联系作者。')
-        raw_input('')
+        input('')
         sys.exit()
     print( u'是否放弃初始化结果？（yes/No）（Tips：按回车相当于‘No’，程序继续。各处皆相同。）')
-    initok = raw_input('')
+    initok = input('')
     initok +='_'
     if initok[0] == 'y' or initok[0] == 'Y':
         print( u'放弃初始化结果。下次运行程序时再次初始化。按任意键退出。')
-        raw_input('')
+        input('')
         sys.exit()
     editoraddlist[0] = termmode+'\n' # 强行重写列表第一行
     editoraddlist[1] = chiefedname+'\n' # 强行重写列表第二行
@@ -621,7 +625,7 @@ if termmode == '?': # termmode为“?”，说明未经初始化
         editoraddbook.write(i)
     editoraddbook.close()
     print( u'初始化成功！现在可以开始使用本程序了！按任意键继续。')
-    raw_input('')
+    input('')
 
 ###***###欢迎界面###***###
 print( u'欢迎使用QJZEditor '+ver+u'。请按照文档要求处理好采编内容，并保存在本脚本相同文件夹中。')
@@ -660,7 +664,7 @@ else:
     print( u"今天是"+str(QJZyear)+u"年"+str(QJZmon)+\
       u"月"+str(QJZmday)+u"日，"+get_week_day(datetime.datetime.now())\
       +u"\n默认排版今天的。要更改排版起居注的日期么？(yes/No):")
-    changedate = raw_input('') # 判断是否更改日期
+    changedate = input('') # 判断是否更改日期
     changedate += '_' # 允许用户直接按Enter键跳过
 # 手动更新年月日
 if changedate[0] == 'y' or changedate[0] == 'Y':
@@ -711,7 +715,7 @@ directory.sort() # 将文件排序
 for i in range(0,10): # 只检查0-9区
     if directory[i][:1] != str(i):
         print( u'z！你的'+str(i)+u'区呢？')
-        raw_input('Press enter to exit.')
+        input('Press enter to exit.')
         sys.exit()
 
 ###***###生成Header###***###
@@ -789,33 +793,33 @@ grplist_editordict.sort() # 排序
 for i in grplist_editordict:  # 依次输出
     print( u"%s区采编：" % i+editordict[i])
 print( u'是否更改？（y/N）')
-changeeditor = raw_input('')
+changeeditor = input('')
 changeeditor += '_' # 便于直接回车跳过
 
 # 更改采编
 while(changeeditor[0] == 'y' or changeeditor[0] == 'Y'):
     print( u'更改哪个区的采编？请输入数字或首字母。')
-    changeeditorkey = raw_input('')
+    changeeditorkey = input('')
     if changeeditorkey in ['a','b','c','g','h']: # 兼容非大写的分区名称
         changeeditorkey = changeeditorkey.upper() # 一律写成大写字母
     while editordict.get(changeeditorkey, '0')== '0':
         print(u'不存在这个区！重新输入！')
-        changeeditorkey = raw_input('')
+        changeeditorkey = input('')
         if changeeditorkey in ['a','b','c','g','h']:
             changeeditorkey = changeeditorkey.upper()
         continue
     print( str(changeeditorkey) + u'区当前的采编是'+ editordict[changeeditorkey])
     print( u'请输入更改后采编的ID（注意大小写）：')
-    changeeditorvalue = raw_input('')
+    changeeditorvalue = input('')
     # ID纠错
     while(converteditor(changeeditorvalue) == '0'):
         print( u'没有找到这个采编，请核对拼写或更新Editor.ans文件。')
         print( u'请输入更改后采编的ID：')
-        changeeditorvalue = raw_input('')
+        changeeditorvalue = input('')
     editordict[changeeditorkey] = converteditor(changeeditorvalue) # 实现采编的更改
     print( str(changeeditorkey) + u'区采编已更新为'+ editordict[changeeditorkey])
     print( u'是否继续更改其他分区的主编？（y/N）')
-    changeeditor = raw_input('')
+    changeeditor = input('')
     changeeditor += '_'
     # 完成修改后，重新打印并存入辅助文件
     if not(changeeditor[0] == 'y' or changeeditor[0] == 'Y'):
@@ -863,7 +867,7 @@ for i in editor3line[2]:
     editorbuffer += i+' '
 print( editorbuffer )# 输出第三行
 print( u'默认按两行排列，是否更改为按三行排列？（y/N）')
-changeto3lines = raw_input('')
+changeto3lines = input('')
 changeto3lines += '_'
 if changeto3lines[0] == 'y' or changeto3lines[0] == 'Y':
     editorlinechoice = 3
@@ -891,14 +895,14 @@ if editorlinechoice == 3: # 如果有第三行，写入第三行，否则留空
 if len(chiefedname) < 3: # 如果没有预定义主编，则在此定义
     if len(chiefeddict[QJZwday]) < 3: # chiefeddict[QJZwday]不到3，说明排班主编未指定
         print( u'没有预设主编或排班表，请手动输入主编ID：') # 只能手动输入
-        chiefedname = raw_input('')
+        chiefedname = input('')
     else: # 没有预定义主编，但有排班主编
         print( u'没有预设主编，但排班表上的主编为'+chiefeddict[QJZwday]+u'。是否更改主编？(yes/No)')
-        changechiefed = raw_input('') # 允许更改
+        changechiefed = input('') # 允许更改
         changechiefed += '_'
         if changechiefed[0] == 'y' or changechiefed[0] == 'Y':
             print( u'请输入主编ID：')
-            chiefedname = raw_input('')
+            chiefedname = input('')
         else:
             chiefedname = chiefeddict[QJZwday]
 else: #如果有预定义的主编，则自动调用
@@ -909,38 +913,38 @@ else: #如果有预定义的主编，则自动调用
     else: # 只有预设主编，没有排班信息。
         print( u'预设主编为'+chiefedname+u'。是否更改主编？(yes/No)')
     # 两种情况下都有更改主编的可能
-    changechiefed = raw_input('')
+    changechiefed = input('')
     changechiefed += '_'
     if changechiefed[0] == 'y' or changechiefed[0] == 'Y':
         if len(chiefeddict[QJZwday])>3:
             print( u'是否将主编更改为排班表上的'+chiefeddict[QJZwday]+u'？(yes/No)')
-            changetoroll = raw_input('')
+            changetoroll = input('')
             changetoroll += '_'
             if changetoroll[0] == 'y' or changetoroll[0] == 'Y':
                 chiefedname = chiefeddict[QJZwday]
             else:
                 print( u'输入更改后主编的ID：')
-                chiefedname = raw_input('')
+                chiefedname = input('')
 
 # 纠错
 while (converteditor(chiefedname) == '0'):
     print( u'没有找到这个主编，请核对拼写或更新Editor.ans文件。')
     print( u'请重新输入主编ID：')
-    chiefedname = raw_input('')
+    chiefedname = input('')
 chiefname = editordictupper[chiefedname.upper()]
 print(u'现在的主编是'+chiefname+u'。')
 
 # 处理校对
 if len(proofdict[QJZwday])<3: # 先查排班表
     print( u'排班表上没有今天的校对，请输入手动输入校对ID：')
-    proofname = raw_input('')
+    proofname = input('')
 else:
     print( u'排班表上所列校对为'+proofdict[QJZwday]+u'。是否更改校对？(yes/No)')
-    changeproof = raw_input('')
+    changeproof = input('')
     changeproof += '_'
     if changeproof[0] == 'y' or changeproof[0] == 'Y':
         print( u'输入更改后校对的ID：')
-        proofname = raw_input('')
+        proofname = input('')
         print( u'校对更改为'+chiefedname+u'。')
     else:
         proofname = proofdict[QJZwday]
@@ -949,7 +953,7 @@ else:
 while (converteditor(proofname) == '0'):
     print( u'没有找到这个校对，请核对拼写或更新Editor.ans文件。')
     print( u'请重新输入校对ID：')
-    proofname = raw_input('')
+    proofname = input('')
 proofname = editordictupper[proofname.upper()]
 print(u'现在的校对是'+proofname+u'。')
 
@@ -1015,4 +1019,4 @@ print( u'已经把连接好的最终文件存在QJZ@'+processFile+u'文件夹的
 print
 
 print( u'按任意键结束。')
-raw_input('')
+input('')
