@@ -268,6 +268,7 @@ def chkpunct(chkstr, grp):
         input('')
 
 def chkboardsingle(boardname, grp):
+    boardname = boardname.decode()
     if pubboarddict.get(boardname,0) == 0:
         if priboarddict.get(boardname,0) == 0:
             print( u'####################')
