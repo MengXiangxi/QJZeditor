@@ -8,7 +8,7 @@
 # last commit: 20190225
 
 ###版本号###
-ver = '2.3.1'
+ver = '2.3.2'
 ###版本号###
 import os
 import codecs # 用于处理文本编码
