@@ -9,11 +9,11 @@ Created on Mon Mar 23 21:37:13 2020
 import getpass
 import os
 import re
-import subprocess
 import time
 
 from BDWM import BDWM
 from QJZCrawler import QJZCrawler
+from QJZEditor_2_3_1_py3k import main as editor_main
 from utils import bold_string, bold_green, bold_red, bold_yellow, wrap_separate_bar
 
 
@@ -138,14 +138,15 @@ class QJZPoster:
 
         while True:
             print(bold_string(wrap_separate_bar('开始跑院士的脚本')))
-            subprocess.run(['python2', 'QJZEditor_2_3_1.py'])
-
-            ans = input('如果院士脚本报错，请将种子文件修改正确后输入y重跑脚本；输入e退出程序；\n'
-                        '输入其他字符将进入自动发帖环节：')
-            if not ans or ans[0] not in ['e', 'E', 'y', 'Y']:
-                break
-            if ans[0] in ['e', 'E']:
-                return
+            try:
+                editor_main()
+            except Exception:
+                ans = input('院士脚本报错，请【将种子文件修改正确后】输入y重跑脚本；按任意键退出程序:')
+                if ans and ans[0] in ['y', 'Y']:
+                    continue
+                else:
+                    return
+            break
 
         print(bold_string(wrap_separate_bar('院士脚本跑完啦，接下来开始帮你自动发帖')))
         num = input('请选择你要发贴的版面代号 0.WMReview(正式出刊), 1.WMQJZ(给校对看), 2.Test(测试)：')
