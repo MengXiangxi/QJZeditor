@@ -92,7 +92,7 @@ class QJZPoster:
             board_name, postid, threadid, 
             '{}/{}'.format(self._WMREVIEW_COLLECTION_PATH, sub_path))
     
-    def _auto_post_pipeline(self, num):
+    def _auto_post_pipeline(self, num, reviewer=None):
         """自动发帖的工序"""
         board_name = self._BOARD_NAME_MAP[num]
         postid, threadid = self._create_post(board_name)
@@ -103,7 +103,11 @@ class QJZPoster:
             self._add_into_collection(board_name, postid, threadid)
 
         if num == 1:
-            input('请at校对进行review，校对结束点回车确认')
+            if reviewer:
+                content = 'Hi, 麻烦@{} 校对看一下~'.format(reviewer)
+                self._bdwm.reply_post(board_name, postid, 'Re: ' + self._title, content)
+                print('已在版面上at校对~', end="")
+            input('请在校对结束后点回车确认')
             ans = input('是否需要正式出刊(即发往WMReview版)？(yes/No)')
             if ans and ans[0] in ['y', 'Y']:
                 print('请根据校对建议，修改好电脑上的{}文件！'.format(self._txt_file))
@@ -130,10 +134,11 @@ class QJZPoster:
         print(bold_green("爬取帖子完毕！"))
         input("按任意键开始跑院士的脚本~")
 
+        reviewer = None
         while True:
             print(bold_string(wrap_separate_bar('开始跑院士的脚本')))
             try:
-                editor_main(self._date)
+                reviewer = editor_main(self._date)
             except Exception:
                 ans = input('院士脚本报错，请【将种子文件修改正确后】输入y重跑脚本；按任意键退出程序:')
                 if ans and ans[0] in ['y', 'Y']:
@@ -146,7 +151,7 @@ class QJZPoster:
         num = input('请选择你要发贴的版面代号 0.WMReview(正式出刊), 1.WMQJZ(给校对看), 2.Test(测试)：')
         while num not in {'0', '1', '2'}:
             num = input(bold_red('请输入0，1或2！==>'))
-        self._auto_post_pipeline(int(num))
+        self._auto_post_pipeline(int(num), reviewer)
 
         input('按任意键结束~')
 

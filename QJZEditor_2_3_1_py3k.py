@@ -902,6 +902,7 @@ def main(QJZ_date=''):
 
     print( u'按任意键结束。')
     input('')
+    return proofname
 
 
 if __name__ == '__main__':

@@ -104,28 +104,42 @@ class BDWM:
         assert response_data['success'], bold_red(action_string + '失败！')
         return response_data
 
-    def create_post(self, board_name, title, content_string, 
-                    mail_re=True, no_reply=False, signature=None):
+    @classmethod
+    def _get_post_info(cls, mail_re, no_reply, parent_id):
+        post_info = '"no_reply":{},"mail_re":{}'.format(str(no_reply).lower(), str(mail_re).lower())
+        if parent_id:
+            post_info += ',"parentid":{}'.format(parent_id)
+        return '{{{}}}'.format(post_info)
+
+    def create_post(self, board_name, title, content_string,
+                    mail_re=True, no_reply=False, signature=None, parent_id=None):
         content = get_content_from_raw_string(content_string)
         bid = self._BID_MAP[board_name.lower()]
+
         data = {
             'title': title,
             'content': content,
             'bid': bid,
-            'postinfo': '{{"no_reply":{},"mail_re":{}}}'.format(
-                str(no_reply).lower(), str(mail_re).lower()),
+            'postinfo': self._get_post_info(mail_re, no_reply, parent_id),
         }
         if signature is not None:
             data['signature'] = signature
-        response_data = self._get_response_data('ajax/create_post', data, '发帖')
+
+        action = '回帖' if parent_id else '发帖'
+        response_data = self._get_response_data('ajax/create_post', data, action)
         postid = response_data['result']['postid']
         post_link = '{}?bid={}&postid={}'.format(
             self._get_action_url('post-read-single'), bid, postid)
-        print(bold_green('发帖成功！') + '帖子链接：{}'.format(post_link))
+        print(bold_green(action + '成功！') + '帖子链接：{}'.format(post_link))
         return response_data['result']
 
-    def edit_post(self, board_name, postid, title, content_string,
-                  signature=None):
+    def reply_post(self, board_name, main_postid, main_title, content_string,
+                   mail_re=True, no_reply=False, signature=None):
+        """Reply to the post with main_postid and main_title"""
+        return self.create_post(board_name, "Re: " + main_title, content_string,
+                                mail_re, no_reply, signature, parent_id=main_postid)
+
+    def edit_post(self, board_name, postid, title, content_string, signature=None):
         content = get_content_from_raw_string(content_string)
         bid = self._BID_MAP[board_name.lower()]
         data = {
