@@ -6,8 +6,20 @@ Created on Mon Mar 23 21:37:13 2020
 @author: KakaHiguain@BDWM
 """
 
+import datetime
+import os
 
 SEPARATE_BAR = "======================"
+NO_QJZ_WEEKDAYS = {4, 6}  # Friday and Sunday
+CHINESE_WEEKDAY = {
+    0: u'星期一',
+    1: u'星期二',
+    2: u'星期三',
+    3: u'星期四',
+    4: u'星期五',
+    5: u'星期六',
+    6: u'星期日',
+}
 
 
 def get_content_from_raw_string(content_string):
@@ -76,7 +88,79 @@ def bold_yellow(s):
     return format_string(s, '1;33')
 
 
-if __name__ == '__main__':
-    with open('test.txt') as f:
-        s = f.read()
-    print(get_content_from_raw_string(s))
+def change_date():
+    """Return a 8 digit date if input is invalid, otherwise return None."""
+    print(u'输入新的日期，格式为YYYYMMDD：')
+    QJZ_date = input('')  # 暂存日期，后面的if都是差错用的，因为院士不习惯try
+    if not QJZ_date.isdigit():  # 检查是不是纯数字
+        print(u'YYYYMMDD就是年月日8个数字连起来，中间不能用字符或符号，明白？重输吧。')
+        return None
+    if len(QJZ_date) != 8:  # 检查是不是8位数
+        print(u'你穿越了么！你的位数对吗！重来！')
+        return None
+    QJZ_year = int(QJZ_date[0:4])  # 检查是不是2013-2030年
+    if QJZ_year not in range(2013, 2031):
+        print(u'你是从哪里穿越来的！重来！')
+        return None
+    QJZ_month = int(QJZ_date[4:6])  # 检查是不是正确的月份
+    if QJZ_month not in range(1, 13):
+        print(u'这是什么奇怪的月份？重来！')
+        return None
+    QJZ_day = int(QJZ_date[6:8])  # 检查是不是正确的日期
+    if QJZ_day not in range(1, 32):
+        print(u'这是什么奇怪的日期？重来！')
+        return None
+    try:  # 最后用try...except兜底
+        QJZ_weekday = datetime.date(QJZ_year, QJZ_month, QJZ_day).weekday()
+    except ValueError:
+        print(u'真的有这个日期么？日历上并没有查到，再来一次。')
+        return None
+
+    # 判断是否为周五或周日
+    if QJZ_weekday in NO_QJZ_WEEKDAYS:
+        print(u'你是Z么，周五和周日停刊啊！再来重新输入一遍。')
+        return None
+
+    print(u"修改后的日期是：\n{}年{}月{}日，{}\n再看一眼没错吧？错了重新输入，别让校对捉住了。重来么？（yes/No）".format(
+        QJZ_year, QJZ_month, QJZ_day, CHINESE_WEEKDAY[QJZ_weekday]
+    ))
+
+    quit = input('')  # 判断是否退出
+    quit += '_'  # 允许用户直接按Enter键跳过
+    if quit[0] == 'y' or quit[0] == 'Y':
+        return None
+
+    return QJZ_date
+
+
+def get_QJZ_date():
+    today = datetime.date.today()
+
+    # 日期 YYYYMMDD
+    QJZ_date = today.__format__('%Y%M%D')
+    QJZ_weekday = today.weekday()
+
+    description = u"今天是{}年{}月{}日，{}\n".format(
+        today.year, today.month, today.day, CHINESE_WEEKDAY[QJZ_weekday])
+    # 打印出来默认的日期
+    if QJZ_weekday in NO_QJZ_WEEKDAYS:
+        print(description + u"今日停刊。")
+        should_change_date = 'y'
+    else:
+        print(description + u"默认排版今天的。要更改排版起居注的日期么？(yes/No):")
+        should_change_date = input('')  # 判断是否更改日期
+        should_change_date += '_'  # 允许用户直接按Enter键跳过
+    # 手动更新年月日
+    if should_change_date[0] == 'y' or should_change_date[0] == 'Y':
+        QJZ_date = None
+        while not QJZ_date:
+            QJZ_date = change_date()
+
+    # 检查相应文件是否存在
+    if not os.path.isfile(QJZ_date + '.txt'):
+        print(u'不存在' + QJZ_date + u'.txt，不是你把日期搞错了，就是你把文件名搞错了。下面重新输入。')
+        QJZ_date = None
+        while not QJZ_date:
+            QJZ_date = change_date()
+
+    return QJZ_date

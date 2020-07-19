@@ -9,12 +9,11 @@ Created on Mon Mar 23 21:37:13 2020
 import getpass
 import os
 import re
-import time
 
 from BDWM import BDWM
 from QJZCrawler import QJZCrawler
 from QJZEditor_2_3_1_py3k import main as editor_main
-from utils import bold_string, bold_green, bold_red, bold_yellow, wrap_separate_bar
+from utils import bold_string, bold_green, bold_red, bold_yellow, wrap_separate_bar, get_QJZ_date
 
 
 class QJZPoster:
@@ -26,13 +25,8 @@ class QJZPoster:
 
     def __init__(self):
         print(bold_string('Hi, 欢迎使用全自动机器人起居注主编~~'))
-        today = time.strftime('%Y%m%d', time.localtime(time.time()))
-        res = input('请输入今天的日期(YYYYMMDD)，默认为今天({})：'.format(today))
-        if res == '':
-            res = today
-        while len(res) != 8 or not res.isdigit():
-            res = input(bold_red('无效的日期！请重新输入：'))
-        self._date = res
+
+        self._date = get_QJZ_date()
         password = getpass.getpass("请输入WMWZ的密码(不会显示)：")
         self._bdwm = BDWM('WMWZ', password)
         
@@ -139,7 +133,7 @@ class QJZPoster:
         while True:
             print(bold_string(wrap_separate_bar('开始跑院士的脚本')))
             try:
-                editor_main()
+                editor_main(self._date)
             except Exception:
                 ans = input('院士脚本报错，请【将种子文件修改正确后】输入y重跑脚本；按任意键退出程序:')
                 if ans and ans[0] in ['y', 'Y']:
