@@ -19,10 +19,9 @@ import codecs # 用于处理文本编码
 import sys
 import re # 正则表达式
 # 下面用于处理时间日期
-import time
 import datetime
 
-from utils import change_date, get_weekday
+from utils import get_QJZ_date
 
 ###################分割函数#####################
 
@@ -562,54 +561,7 @@ def main():
     print( u'任何疑问，请联系作者，或在北大未名BBS起居注内部版发帖询问。')
 
     ###***###处理文件名，并分割文件###***###
-    localtime = time.localtime(time.time()) # 获取当地时间
-    # 用下面几个变量存放年月日周
-    QJZyear = localtime.tm_year
-    QJZmon = localtime.tm_mon
-    QJZmday = localtime.tm_mday
-    QJZwday = datetime.datetime.now().weekday()
-
-    # 将年月日转化成文本
-    strQJZyear = str(QJZyear)
-    if QJZmon < 10: #这里如果月/日小于10，则补“0”
-      strQJZmon = '0'+str(QJZmon)
-    else:
-      strQJZmon = str(QJZmon)
-    if QJZmday < 10:
-      strQJZmday = '0'+str(QJZmday)
-    else:
-      strQJZmday = str(QJZmday)
-
-    # 文件名YYYYMMDD
-    processFile = strQJZyear + strQJZmon + strQJZmday
-
-    # 打印出来默认的日期
-    if QJZwday == 4 or QJZwday == 6:
-        print( u"今天是"+str(QJZyear)+u"年"+str(QJZmon)+\
-          u"月"+str(QJZmday)+u"日，"+get_weekday(datetime.datetime.now())\
-          +u"\n今日停刊。")
-        changedate = 'y'
-    else:
-        print( u"今天是"+str(QJZyear)+u"年"+str(QJZmon)+\
-          u"月"+str(QJZmday)+u"日，"+get_weekday(datetime.datetime.now())\
-          +u"\n默认排版今天的。要更改排版起居注的日期么？(yes/No):")
-        changedate = input('') # 判断是否更改日期
-        changedate += '_' # 允许用户直接按Enter键跳过
-    # 手动更新年月日
-    if changedate[0] == 'y' or changedate[0] == 'Y':
-        dateloop = 'y'
-        while dateloop == 'y':
-            dateloop = change_date()
-            processFile = dateloop # dateloop一方面用来控制循环，另一方面用来盛装返回值
-
-    # 检查相应文件是否存在
-    if os.path.isfile(processFile+'.txt') == False:
-        print( u'不存在'+processFile+u'.txt，不是你把日期搞错了，就是你把文件名搞错了。下面重新输入。')
-        dateloop = 'y'
-        while dateloop == 'y': # 如果文件不存在，则重新重命名。
-            dateloop = change_date()
-            processFile = dateloop
-
+    processFile = get_QJZ_date()
     # 日期最终确定，再次更新周
     strQJZyear = processFile[0:4]
     strQJZmon = processFile[4:6]
