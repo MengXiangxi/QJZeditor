@@ -431,8 +431,9 @@ def subststar(content, termmode):
             substresult.append(i.replace(u'\u001B',u'\u001B\u001B')) # 利用字符串查找实现
     return substresult
 
+
 #******************主程序******************
-def main():
+def main(QJZ_date=''):
     ###***###目录和文件管理###***###
     # cd到脚本所在目录
     #×#×#×##×#×#×#×#×#调试时可能需要注释掉#×#×#×##×#×#×#×#×#
@@ -561,7 +562,7 @@ def main():
     print( u'任何疑问，请联系作者，或在北大未名BBS起居注内部版发帖询问。')
 
     ###***###处理文件名，并分割文件###***###
-    processFile = get_QJZ_date()
+    processFile = QJZ_date if QJZ_date else get_QJZ_date()
     # 日期最终确定，再次更新周
     strQJZyear = processFile[0:4]
     strQJZmon = processFile[4:6]
