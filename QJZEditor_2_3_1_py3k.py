@@ -22,68 +22,9 @@ import re # 正则表达式
 import time
 import datetime
 
+from utils import change_date, get_weekday
+
 ###################分割函数#####################
-# 这个函数用来修改日期
-def datechange():
-    print( u'输入新的日期，格式为YYYYMMDD：')
-    QJZyearmonday = input('') # 暂存日期，后面的if都是差错用的，因为我不习惯try
-    if not QJZyearmonday.isdigit(): # 检查是不是纯数字
-        print( u'YYYYMMDD就是年月日8个数字连起来，中间不能用字符或符号，明白？重输吧。')
-        return 'y'
-    if len(QJZyearmonday)!= 8: # 检查是不是8位数
-        print( u'你穿越了么！你的位数对吗！重来！')
-        return 'y'
-    QJZyear = int(QJZyearmonday[0:4]) # 检查是不是2013-2030年
-    if QJZyear < 2013 or QJZyear > 2030:
-        print( u'你是从哪里穿越来的！重来！')
-        return 'y'
-    QJZmon = int(QJZyearmonday[4:6]) # 检查是不是正确的月份
-    if QJZmon<1 or QJZmon >12:
-        print( u'这是什么奇怪的月份？重来！')
-        return 'y'
-    QJZmday = int(QJZyearmonday[6:8]) # 检查是不是正确的日期
-    if QJZmday < 1 or QJZmday > 31:
-        print( u'这是什么奇怪的日期？重来！')
-        return 'y'
-    try: # 最后用try...except兜底
-        QJZwday = datetime.date(QJZyear, QJZmon, QJZmday).weekday()
-    except ValueError:
-        print( u'真的有这个日期么？日历上并没有查到，再来一次。')
-        return 'y'
-
-    print( u"修改后的日期是：\n"+str(QJZyear)+u"年"+str(QJZmon)+\
-          u"月"+str(QJZmday)+u"日，"+get_week_day(datetime.date(QJZyear, QJZmon, QJZmday))\
-          +u"\n再看一眼没错吧？错了重新输入，别让校对捉住了。重来么？（yes/No）")
-    quitornot = input('')# 判断是否退出
-    quitornot += '_' # 允许用户直接按Enter键跳过
-    if quitornot[0] == 'y' or quitornot[0] == 'Y':
-        return 'y'
-
-    # 分割年月日
-    QJZyear = int(QJZyearmonday[0:4])
-    QJZmon = int(QJZyearmonday[4:6])
-    QJZmday = int(QJZyearmonday[6:8])
-    QJZwday = datetime.date(QJZyear, QJZmon, QJZmday).weekday()# 更新周
-
-    # 判断是否为周五或周日
-    if QJZwday == 4 or QJZwday == 6:
-        print( u'你是Z么，周五和周日停刊啊！再来重新输入一遍。')
-        return 'y'
-
-    # 将年月日转化成文本
-    strQJZyear = str(QJZyear)
-    if QJZmon < 10: #这里如果月/日小于10，则补“0”
-      strQJZmon = '0'+str(QJZmon)
-    else:
-      strQJZmon = str(QJZmon)
-    if QJZmday < 10:
-        strQJZmday = '0'+str(QJZmday)
-    else:
-        strQJZmday = str(QJZmday)
-
-    # 文件名YYYYMMDD
-    processFile = strQJZyear + strQJZmon + strQJZmday
-    return processFile
 
 # doc string什么的就都不写了，这个函数的功能就是，
 # 把搞下来的一坨长文件（种子文件）按照分区自动切分成N个文件，并且命名
@@ -173,20 +114,6 @@ def sepaFile(filename, termmode):
     print( u'文件分割完成')
     return nonvoidlist
 
-###################Header函数###################
-# 下面这个函数把周几换成中文
-def get_week_day(date):
-    week_day_dict = {
-        0 : u'星期一',
-        1 : u'星期二',
-        2 : u'星期三',
-        3 : u'星期四',
-        4 : u'星期五',
-        5 : u'星期六',
-        6 : u'星期日',
-    }
-    day = date.weekday()
-    return week_day_dict[day]
 
 ###################Body函数###################
 # 用于映射不同分区的版面名的颜色代码
@@ -659,12 +586,12 @@ def main():
     # 打印出来默认的日期
     if QJZwday == 4 or QJZwday == 6:
         print( u"今天是"+str(QJZyear)+u"年"+str(QJZmon)+\
-          u"月"+str(QJZmday)+u"日，"+get_week_day(datetime.datetime.now())\
+          u"月"+str(QJZmday)+u"日，"+get_weekday(datetime.datetime.now())\
           +u"\n今日停刊。")
         changedate = 'y'
     else:
         print( u"今天是"+str(QJZyear)+u"年"+str(QJZmon)+\
-          u"月"+str(QJZmday)+u"日，"+get_week_day(datetime.datetime.now())\
+          u"月"+str(QJZmday)+u"日，"+get_weekday(datetime.datetime.now())\
           +u"\n默认排版今天的。要更改排版起居注的日期么？(yes/No):")
         changedate = input('') # 判断是否更改日期
         changedate += '_' # 允许用户直接按Enter键跳过
@@ -672,7 +599,7 @@ def main():
     if changedate[0] == 'y' or changedate[0] == 'Y':
         dateloop = 'y'
         while dateloop == 'y':
-            dateloop = datechange()
+            dateloop = change_date()
             processFile = dateloop # dateloop一方面用来控制循环，另一方面用来盛装返回值
 
     # 检查相应文件是否存在
@@ -680,7 +607,7 @@ def main():
         print( u'不存在'+processFile+u'.txt，不是你把日期搞错了，就是你把文件名搞错了。下面重新输入。')
         dateloop = 'y'
         while dateloop == 'y': # 如果文件不存在，则重新重命名。
-            dateloop = datechange()
+            dateloop = change_date()
             processFile = dateloop
 
     # 日期最终确定，再次更新周
