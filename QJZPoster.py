@@ -104,8 +104,8 @@ class QJZPoster:
 
         if num == 1:
             if reviewer:
-                content = 'Hi, 麻烦@{} 校对看一下~'.format(reviewer)
-                self._bdwm.reply_post(board_name, postid, 'Re: ' + self._title, content)
+                content = 'Hi, @{} , 麻烦校对看一下~'.format(reviewer)
+                self._bdwm.reply_post(board_name, postid, self._title, content)
                 print('已在版面上at校对~', end="")
             input('请在校对结束后点回车确认')
             ans = input('是否需要正式出刊(即发往WMReview版)？(yes/No)')

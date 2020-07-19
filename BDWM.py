@@ -210,4 +210,4 @@ class BDWM:
         }
         response_data = self._get_response_data('ajax/collection_import', data, '添加精华区文件')
         print(bold_green('添加精华区文件成功！'))
-        return response_data['name']       
+        return response_data['name']

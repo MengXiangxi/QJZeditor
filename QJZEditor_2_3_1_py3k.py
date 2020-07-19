@@ -21,7 +21,7 @@ import re # 正则表达式
 # 下面用于处理时间日期
 import datetime
 
-from utils import get_QJZ_date
+from utils import get_QJZ_date, change_date
 
 ###################分割函数#####################
 
@@ -563,6 +563,14 @@ def main(QJZ_date=''):
 
     ###***###处理文件名，并分割文件###***###
     processFile = QJZ_date if QJZ_date else get_QJZ_date()
+
+    # 检查相应文件是否存在
+    while not os.path.isfile(processFile + '.txt'):
+        print(u'不存在' + processFile + u'.txt，不是你把日期搞错了，就是你把文件名搞错了。下面重新输入。')
+        processFile = None
+        while not processFile:
+            processFile = change_date()
+
     # 日期最终确定，再次更新周
     strQJZyear = processFile[0:4]
     strQJZmon = processFile[4:6]
@@ -843,7 +851,7 @@ def main(QJZ_date=''):
     footerfile = codecs.open(os.path.join('QJZ@'+processFile, 'footer'+processFile+'.txt'), 'w', 'utf-8')
     footerfile.write(ansitemp[223].strip()+coloring(chiefedname, editorcolordict)+'\r\n') # 第一行写入主编ID
     footerfile.write(ansitemp[224].strip()+line1+'\r\n') # 第二行写入采编第一行
-    footerfile.write(ansitemp[225].strip()+'             '+line2+'\r\n') # 采编第二行
+    footerfile.write(ansitemp[225].strip()+'           '+line2+'\r\n') # 采编第二行
     footerfile.write(ansitemp[226].strip()+'            '+line3+'\r\n') # 采编第三行
     for i in range(227,230): # 连续写入
         footerfile.write(ansitemp[i])
@@ -851,7 +859,6 @@ def main(QJZ_date=''):
     footerfile.write(ansitemp[231])
     footerfile.write(ansitemp[232])
     footerfile.write(ansitemp[233]) # 连续写入
-    footerfile.write(u'\u001B[37mPowered by QJZEditor '+ver+u'\u001B[m')
     footerfile.close()
 
     print( u'已经把footer存在QJZ@'+processFile+u'文件夹的footer'+processFile+u'.txt文件里面了。')
@@ -897,11 +904,7 @@ def main(QJZ_date=''):
     footerfile.close()
     QJZfinalfile.close()
 
-    print( u'已经把连接好的最终文件存在QJZ@'+processFile+u'文件夹的QJZ@'+processFile+u'.txt文件里面了。')
-    print
-
-    print( u'按任意键结束。')
-    input('')
+    print(u'已经把连接好的最终文件存在QJZ@'+processFile+u'文件夹的QJZ@'+processFile+u'.txt文件里面了。\n')
     return proofname
 
 

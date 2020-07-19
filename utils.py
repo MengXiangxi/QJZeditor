@@ -7,7 +7,6 @@ Created on Mon Mar 23 21:37:13 2020
 """
 
 import datetime
-import os
 
 SEPARATE_BAR = "======================"
 NO_QJZ_WEEKDAYS = {4, 6}  # Friday and Sunday
@@ -24,12 +23,17 @@ CHINESE_WEEKDAY = {
 
 def get_content_from_raw_string(content_string):
     parts = content_string.split('\u001B[')
+    change_font = content_string.startswith('\u001B[')
     template = '{{"type":"ansi","bold":{},"underline":{},"fore_color":{},' \
                '"back_color":{},"content":"{}"}}'
     bold, underline, fore_color, back_color = 'false', 'false', 9, 9
     res = []
     for part in parts:
         pos = part.find('m')
+        # The first part may not change font.
+        if not change_font:
+            pos = -1
+            change_font = True
         if pos > -1:
             font_codes = part[:pos].split(';')
             if len(font_codes) == 1 and font_codes[0] == '':
@@ -151,14 +155,7 @@ def get_QJZ_date():
         should_change_date = input('')  # 判断是否更改日期
         should_change_date += '_'  # 允许用户直接按Enter键跳过
     # 手动更新年月日
-    if should_change_date[0] == 'y' or should_change_date[0] == 'Y':
-        QJZ_date = None
-        while not QJZ_date:
-            QJZ_date = change_date()
-
-    # 检查相应文件是否存在
-    if not os.path.isfile(QJZ_date + '.txt'):
-        print(u'不存在' + QJZ_date + u'.txt，不是你把日期搞错了，就是你把文件名搞错了。下面重新输入。')
+    if should_change_date[0] in {'y', 'Y'}:
         QJZ_date = None
         while not QJZ_date:
             QJZ_date = change_date()
