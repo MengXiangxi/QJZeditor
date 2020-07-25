@@ -14,6 +14,9 @@ from utils import get_content_from_raw_string, bold_green, bold_red
 
 
 class BDWM:
+    class RequestError(RuntimeError):
+        pass
+
     _HOST = 'bbs.pku.edu.cn'
     _BOARD_MODES = {'topic', 'single'}
     _BID_MAP = {  # Keys should be in lower case.
@@ -101,7 +104,8 @@ class BDWM:
             self._session.post(self._get_action_url(relative_url), 
                                headers=self._headers,
                                data=data).text)
-        assert response_data['success'], bold_red(action_string + '失败！')
+        if not response_data['success']:
+            raise BDWM.RequestError(bold_red(action_string + '失败！'))
         return response_data
 
     @classmethod

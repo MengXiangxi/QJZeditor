@@ -6,6 +6,7 @@ Created on Mon Mar 23 21:37:13 2020
 @author: KakaHiguain@BDWM
 """
 
+import base64
 import getpass
 import os
 import re
@@ -27,8 +28,20 @@ class QJZPoster:
         print(bold_string('Hi, 欢迎使用全自动机器人起居注主编~~'))
 
         self._date = get_QJZ_date()
-        password = getpass.getpass("请输入WMWZ的密码(不会显示)：")
-        self._bdwm = BDWM('WMWZ', password)
+
+        password_file = os.path.join(os.path.dirname(__file__), '.token', 'token')
+        password = self._get_decoded_password(password_file)
+        if not password:
+            password = getpass.getpass("请输入WMWZ的密码(不会显示)：")
+            # Store encoded password in a file, to avoid inputting password every time.
+            self._write_encoded_password(password, password_file)
+
+        try:
+            self._bdwm = BDWM('WMWZ', password)
+        except BDWM.RequestError as e:
+            # If failing to login, remove wrong password file.
+            os.remove(password_file)
+            raise e
         
         self._year, self._month, self._day = \
             self._date[:4], self._date[4:6], self._date[6:]
@@ -37,6 +50,23 @@ class QJZPoster:
         self._txt_file = os.path.join('QJZ@{}'.format(self._date), 
                                       'QJZ@{}.txt'.format(self._date))
         
+    @classmethod
+    def _get_decoded_password(cls, file):
+        """read password and decode it"""
+        if not os.path.exists(file):
+            return None
+        with open(file, 'r') as f:
+            encoded_password = f.read()
+        return base64.b64decode(encoded_password.encode()).decode()
+
+    @classmethod
+    def _write_encoded_password(cls, password, file):
+        """encode password and write it"""
+        encoded_password = base64.b64encode(password.encode()).decode()
+        os.makedirs(os.path.dirname(file), exist_ok=True)
+        with open(file, 'w') as f:
+            f.write(encoded_password)
+
     def _create_post(self, board_name):
         """在board_name版发本期起居注"""
         with open(self._txt_file, 'r', encoding='utf8') as f:
