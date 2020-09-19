@@ -142,7 +142,7 @@ def get_QJZ_date():
     today = datetime.date.today()
 
     # 日期 YYYYMMDD
-    QJZ_date = today.__format__('%Y%M%D')
+    QJZ_date = today.__format__('%Y%m%d')
     QJZ_weekday = today.weekday()
 
     description = u"今天是{}年{}月{}日，{}\n".format(

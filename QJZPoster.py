@@ -56,7 +56,8 @@ class QJZPoster:
             self._year, self._month, self._day)
         self._txt_file = os.path.join('QJZ@{}'.format(self._date), 
                                       'QJZ@{}.txt'.format(self._date))
-        
+        self._seed_file = '{}.txt'.format(self._date)
+
     @classmethod
     def _get_decoded_password(cls, file):
         """read password and decode it"""
@@ -145,8 +146,10 @@ class QJZPoster:
                 self._bdwm.reply_post(board_name, postid, self._title, content)
                 print('已在版面上at校对~', end="")
             input('请在校对结束后点回车确认')
-            ans = input('是否需要正式出刊(即发往WMReview版)？(yes/No)')
-            if ans and ans[0] in ['y', 'Y']:
+            ans = input('是否需要正式出刊(即发往WMReview版)？(正式出刊输入y，结束程序输入n)')
+            while not(ans and ans[0] in ['y', 'Y', 'n', 'N']):
+                ans = input('请输入y或n！')
+            if ans[0] in ['y', 'Y']:
                 print('请根据校对建议，修改好电脑上的{}文件！'.format(self._txt_file))
                 input('按任意键正式出刊~')
                 self._auto_post_pipeline(0)
@@ -157,18 +160,19 @@ class QJZPoster:
         print('标题正确格式："X@MMDD" / "X@MMDD kong" / "X@MMDD void"')
         print(bold_yellow("注：由于院士代码的限制，当我们找到同一个区的多个帖子时（如有多个8@0328），"
               "我们只保留发表时间最后的主题帖。如果有需要合并多个采编的爆料，请手动修改版上的帖子。"))
-        input("按任意键开始爬取帖子~")
+        ans = input("按任意键开始爬取帖子~ 【注：若种子文件{}已经生成，请按e跳过该步骤】".format(self._seed_file))
+        if not (ans and ans[0] in ['e', 'E']):
+            crawler = QJZCrawler(self._bdwm, self._year, self._month, self._day)
+            while True:
+                print(bold_string(wrap_separate_bar("开始从WMQJZ版爬取帖子：")))
+                if crawler.generate_seed_file():
+                    break
+                print(bold_red("自动爬取帖子失败！请检查各区是否齐全，发帖格式是否正确，后重试~"))
+                ans = input("按任意键重新爬取帖子，或输入e退出程序")
+                if ans and ans[0] in ['e', 'E']:
+                    return
+            print(bold_green("爬取帖子完毕！"))
 
-        crawler = QJZCrawler(self._bdwm, self._year, self._month, self._day)
-        while True:
-            print(bold_string(wrap_separate_bar("开始从WMQJZ版爬取帖子：")))
-            if crawler.generate_seed_file():
-                break
-            print(bold_red("自动爬取帖子失败！请检查各区是否齐全，发帖格式是否正确，后重试~"))
-            ans = input("按任意键重新爬取帖子，或输入e退出程序")
-            if ans and ans[0] in ['e', 'E']:
-                return
-        print(bold_green("爬取帖子完毕！"))
         input("按任意键开始跑院士的脚本~")
 
         reviewer = None
@@ -177,7 +181,8 @@ class QJZPoster:
             try:
                 reviewer = editor_main(self._date)
             except Exception:
-                ans = input('院士脚本报错，请【将种子文件修改正确后】输入y重跑脚本；按任意键退出程序:')
+                ans = input('院士脚本报错，可能是种子文件格式有误~\n'
+                            '请【将种子文件{}修改正确后】输入y重跑脚本；按任意键退出程序:'.format(self._seed_file))
                 if ans and ans[0] in ['y', 'Y']:
                     continue
                 else:
