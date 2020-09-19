@@ -5,23 +5,24 @@
 # 变量名也随便搞了
 # 我还给你用中文注释了，我简直太贴心了啊
 # 作者孟祥溪，mengxiangxibme^O^gmail.com
-# last commit: 20190225
+# last commit: 20200919
 #
 ##################### 注意！#######################
 # 该版本可用于Python 3，但未经严格测试，只作应急使用 #
 ##################################################
 
 ###版本号###
-ver = '2.3.2 py3k'
+VERSION = '3.0'
 ###版本号###
-import os
-import codecs # 用于处理文本编码
-import sys
-import re # 正则表达式
-# 下面用于处理时间日期
-import datetime
 
-from utils import get_QJZ_date, change_date
+import codecs  # 用于处理文本编码
+import datetime
+import os
+import re  # 正则表达式
+import sys
+
+from utils import get_QJZ_date, change_date, initialize, convert_editor, get_editors_info
+
 
 ###################分割函数#####################
 
@@ -327,12 +328,6 @@ def coloring(editorname, editorcolordict):
         input('')
         sys.exit()
 
-# 检查对应ID是否存在，并转化成正确的大小写
-def converteditor(editorname, editordictupper):
-    if editordictupper.get(editorname.upper(), 0) == 0:
-        return '0'
-    else:
-        return editordictupper[editorname.upper()]
 
 # 处理sepaFile()搞出来的分区文件（或者自动下载的文件），从中抽提采编姓名
 def getFoot(foldername, filename, footaux):
@@ -462,16 +457,10 @@ def main(QJZ_date=''):
     editoraddbook.close()
 
     # 从Editors.ans载入人员信息，建立字典
-    editoraddbook = open('Editors.ans','r')
-    editorcolordict = {} # 构建一个ID颜色字典
-    editoraddlist = editoraddbook.readlines()
-    for i in range(7, len(editoraddlist)): # 写入信息
-        editorcolordict[editoraddlist[i].strip().split(' ')[0]] = editoraddlist[i].strip().split(' ')[1]
-    editoraddbook.close()
-    # 从ID颜色字典建立一个全部字母大写的ID与原ID的映射字典，方便处理大小写
-    editordictupper = {} # 全大写ID字典
-    for i in editorcolordict:
-        editordictupper[i.upper()] = i
+    # TODO(KakaHiguain): This part is in a mix, need to combine this with the last part.
+    #  Also we should separate "Editors.ans" to three files: 1-2 lines: current chief editor,
+    #  3-6 Schedule, 7-end Editor list.
+    editorcolordict, editoraddlist, editordictupper = get_editors_info()
 
     # 打开版面列表
     if os.path.isfile('boardlist.csv'):
@@ -495,69 +484,11 @@ def main(QJZ_date=''):
 
     ###***###初始化###***###
     # 初始化
-    if termmode == '?': # termmode为“?”，说明未经初始化
-        print( u'欢迎使用QJZEditor '+ver+u'。这可能是你首次运行本程序，下面我们进行简单的初始化。')
-        print( u'如需更改初始化参数，请参考文档。初始化共二步，首先请设置主编ID。')
-        print( u'如果希望每次自行输入主编ID，请输入数字‘0’。下面输入主编ID或0：')
-        initchiefname = input('')
-        if initchiefname == '0':
-            chiefedname = '0' # 后面会检测，如果是空行则每次输入主编ID
-        else:
-            while (converteditor(initchiefname, editordictupper) == '0'): # 对着编辑字典查一下
-                print( u'没有找到这个主编，请核对更改或在版上反映该问题。')
-                print( u'请输入更改后的主编ID：')
-                initchiefname = input('')
-                if initchiefname == '0':
-                    break
-            chiefedname = converteditor(initchiefname, editordictupper)
-        print( u'好厉害！你已经完成了第一步啦！下面是第二步，选择一个你常用的Telnet终端（Term）。')
-        print( u'你有三个选项：FTerm（F）、CTerm（C）或者Welly（W）。')
-        print( u'下面请输入你常用Term的名称（英文）或首字母：')
-        termname = input('')
-        termname += '_'
-        while not(termname[0] in ['c','C','w','W','f','F']): # 只考虑首字母
-            print( u'不是很懂你输入的是啥。再重新输入一遍吧。')
-            termname = input('')
-            termname += '_'
-        if termname[0] == 'c' or termname[0] == 'C':
-            termmode = 'c'
-        elif termname[0] == 'w' or termname[0] == 'W':
-            termmode = 'w'
-        elif termname[0] == 'f' or termname[0] == 'F':
-            termmode = 'f'
-        print( u'恭喜你！初始化已经完成了，你的选项如下：')
-        if chiefedname[0] == '0':
-            print( u'你选择每次手动输入主编ID。')
-        else:
-            print( u'默认的主编ID是：'+chiefedname)
-        if termmode  == 'c':
-            print( u'默认的终端是：CTerm。')
-        elif termmode == 'f':
-            print( u'默认的终端是：FTerm。')
-        elif termmode == 'w':
-            print( u'默认的终端是：Welly。')
-        else:
-            print(  u'Term选择遇到未知错误（2），请联系作者。')
-            input('')
-            sys.exit()
-        print( u'是否放弃初始化结果？（yes/No）（Tips：按回车相当于‘No’，程序继续。各处皆相同。）')
-        initok = input('')
-        initok +='_'
-        if initok[0] == 'y' or initok[0] == 'Y':
-            print( u'放弃初始化结果。下次运行程序时再次初始化。按任意键退出。')
-            input('')
-            sys.exit()
-        editoraddlist[0] = termmode+'\n' # 强行重写列表第一行
-        editoraddlist[1] = chiefedname+'\n' # 强行重写列表第二行
-        editoraddbook = open('Editors.ans','w')
-        for i in editoraddlist: # 全部写回Editor.ans
-            editoraddbook.write(i)
-        editoraddbook.close()
-        print( u'初始化成功！现在可以开始使用本程序了！按任意键继续。')
-        input('')
+    if termmode == '?':  # termmode为“?”，说明未经初始化
+        termmode, chiefedname = initialize(editoraddlist, editordictupper)
 
     ###***###欢迎界面###***###
-    print( u'欢迎使用QJZEditor '+ver+u'。请按照文档要求处理好采编内容，并保存在本脚本相同文件夹中。')
+    print( u'欢迎使用QJZEditor '+VERSION+u'。请按照文档要求处理好采编内容，并保存在本脚本相同文件夹中。')
     print( u'请注意文件名的格式，应为“YYYYMMDD.txt。”')
     print( u'任何疑问，请联系作者，或在北大未名BBS起居注内部版发帖询问。')
 
@@ -702,11 +633,11 @@ def main(QJZ_date=''):
         print( u'请输入更改后采编的ID（注意大小写）：')
         changeeditorvalue = input('')
         # ID纠错
-        while(converteditor(changeeditorvalue, editordictupper) == '0'):
+        while(convert_editor(changeeditorvalue, editordictupper) == '0'):
             print( u'没有找到这个采编，请核对拼写或更新Editor.ans文件。')
             print( u'请输入更改后采编的ID：')
             changeeditorvalue = input('')
-        editordict[changeeditorkey] = converteditor(changeeditorvalue, editordictupper) # 实现采编的更改
+        editordict[changeeditorkey] = convert_editor(changeeditorvalue, editordictupper) # 实现采编的更改
         print( str(changeeditorkey) + u'区采编已更新为'+ editordict[changeeditorkey])
         print( u'是否继续更改其他分区的主编？（y/N）')
         changeeditor = input('')
@@ -817,7 +748,7 @@ def main(QJZ_date=''):
                     chiefedname = input('')
 
     # 纠错
-    while (converteditor(chiefedname, editordictupper) == '0'):
+    while (convert_editor(chiefedname, editordictupper) == '0'):
         print( u'没有找到这个主编，请核对拼写或更新Editor.ans文件。')
         print( u'请重新输入主编ID：')
         chiefedname = input('')
@@ -840,7 +771,7 @@ def main(QJZ_date=''):
             proofname = proofdict[QJZwday]
 
     # 纠错
-    while (converteditor(proofname, editordictupper) == '0'):
+    while (convert_editor(proofname, editordictupper) == '0'):
         print( u'没有找到这个校对，请核对拼写或更新Editor.ans文件。')
         print( u'请重新输入校对ID：')
         proofname = input('')

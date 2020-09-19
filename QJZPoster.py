@@ -14,7 +14,8 @@ import re
 from BDWM import BDWM
 from QJZCrawler import QJZCrawler
 from QJZEditor_2_3_1_py3k import main as editor_main
-from utils import bold_string, bold_green, bold_red, bold_yellow, wrap_separate_bar, get_QJZ_date
+from utils import bold_string, bold_green, bold_red, bold_yellow, wrap_separate_bar, \
+    get_QJZ_date, get_editors_info, initialize
 
 
 class QJZPoster:
@@ -23,9 +24,15 @@ class QJZPoster:
     _WMREVIEW_COLLECTION_PATH = 'groups/GROUP_0/WMReview/D5448A5D2'
     # 转到BBSInfo时要加上这一句
     _FORWARD_POST_HEADER = '原文由 WMWZ 发表在 WMReview 版 >>>\n'
+    _INITIALIZE_FILE = os.path.join(os.path.dirname(__file__), '.initialized')
 
     def __init__(self):
         print(bold_string('Hi, 欢迎使用全自动机器人起居注主编~~'))
+        if not os.path.exists(self._INITIALIZE_FILE):
+            _, editoraddlist, editordictupper = get_editors_info()
+            initialize(editoraddlist, editordictupper)
+            with open(self._INITIALIZE_FILE, 'w'):
+                pass
 
         self._date = get_QJZ_date()
 

@@ -7,6 +7,7 @@ Created on Mon Mar 23 21:37:13 2020
 """
 
 import datetime
+import sys
 
 SEPARATE_BAR = "======================"
 NO_QJZ_WEEKDAYS = {4, 6}  # Friday and Sunday
@@ -161,3 +162,90 @@ def get_QJZ_date():
             QJZ_date = change_date()
 
     return QJZ_date
+
+
+# 检查对应ID是否存在，并转化成正确的大小写
+def convert_editor(editorname, editordictupper):
+    if editordictupper.get(editorname.upper(), 0) == 0:
+        return '0'
+    else:
+        return editordictupper[editorname.upper()]
+
+
+# TODO(KakaHiguain): Need to refactor this part.
+def initialize(editoraddlist, editordictupper):
+    print( u'欢迎使用QJZEditor。这可能是你首次运行本程序，下面我们进行简单的初始化。')
+    print( u'如需更改初始化参数，请参考文档。初始化共二步，首先请设置主编ID。')
+    print( u'如果希望每次自行输入主编ID，请输入数字‘0’。下面输入主编ID或0：')
+    initchiefname = input('')
+    if initchiefname == '0':
+        chiefedname = '0' # 后面会检测，如果是空行则每次输入主编ID
+    else:
+        while (convert_editor(initchiefname, editordictupper) == '0'): # 对着编辑字典查一下
+            print( u'没有找到这个主编，请核对更改或在版上反映该问题。')
+            print( u'请输入更改后的主编ID：')
+            initchiefname = input('')
+            if initchiefname == '0':
+                break
+        chiefedname = convert_editor(initchiefname, editordictupper)
+    print( u'好厉害！你已经完成了第一步啦！下面是第二步，选择一个你常用的Telnet终端（Term）。')
+    print( u'你有三个选项：FTerm（F）、CTerm（C）或者Welly（W）。')
+    print( u'下面请输入你常用Term的名称（英文）或首字母：')
+    termname = input('')
+    termname += '_'
+    while not(termname[0] in ['c','C','w','W','f','F']): # 只考虑首字母
+        print( u'不是很懂你输入的是啥。再重新输入一遍吧。')
+        termname = input('')
+        termname += '_'
+    if termname[0] == 'c' or termname[0] == 'C':
+        termmode = 'c'
+    elif termname[0] == 'w' or termname[0] == 'W':
+        termmode = 'w'
+    elif termname[0] == 'f' or termname[0] == 'F':
+        termmode = 'f'
+    print( u'恭喜你！初始化已经完成了，你的选项如下：')
+    if chiefedname[0] == '0':
+        print( u'你选择每次手动输入主编ID。')
+    else:
+        print( u'默认的主编ID是：'+chiefedname)
+    if termmode  == 'c':
+        print( u'默认的终端是：CTerm。')
+    elif termmode == 'f':
+        print( u'默认的终端是：FTerm。')
+    elif termmode == 'w':
+        print( u'默认的终端是：Welly。')
+    else:
+        print(  u'Term选择遇到未知错误（2），请联系作者。')
+        input('')
+        sys.exit()
+    print( u'是否放弃初始化结果？（yes/No）（Tips：按回车相当于‘No’，程序继续。各处皆相同。）')
+    initok = input('')
+    initok +='_'
+    if initok[0] == 'y' or initok[0] == 'Y':
+        print( u'放弃初始化结果。下次运行程序时再次初始化。按任意键退出。')
+        input('')
+        sys.exit()
+    editoraddlist[0] = termmode+'\n' # 强行重写列表第一行
+    editoraddlist[1] = chiefedname+'\n' # 强行重写列表第二行
+    editoraddbook = open('Editors.ans','w')
+    for i in editoraddlist: # 全部写回Editor.ans
+        editoraddbook.write(i)
+    editoraddbook.close()
+    print( u'初始化成功！现在可以开始使用本程序了！按任意键继续。')
+    input('')
+    return termmode, chiefedname
+
+
+def get_editors_info():
+    editoraddbook = open('Editors.ans','r')
+    editorcolordict = {}  # 构建一个ID颜色字典
+    editoraddlist = editoraddbook.readlines()
+    for i in range(7, len(editoraddlist)): # 写入信息
+        editorcolordict[editoraddlist[i].strip().split(' ')[0]] = editoraddlist[i].strip().split(' ')[1]
+    editoraddbook.close()
+    # 从ID颜色字典建立一个全部字母大写的ID与原ID的映射字典，方便处理大小写
+    editordictupper = {}  # 全大写ID字典
+    for i in editorcolordict:
+        editordictupper[i.upper()] = i
+    
+    return editorcolordict, editoraddlist, editordictupper
