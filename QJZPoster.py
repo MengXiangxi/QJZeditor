@@ -25,6 +25,7 @@ class QJZPoster:
     # 转到BBSInfo时要加上这一句
     _FORWARD_POST_HEADER = '原文由 WMWZ 发表在 WMReview 版 >>>\n'
     _INITIALIZE_FILE = os.path.join(os.path.dirname(__file__), '.initialized')
+    _MAXIMUM_TITLE_LENGTH = 20
 
     def __init__(self):
         print(bold_string('Hi, 欢迎使用全自动机器人起居注主编~~'))
@@ -54,6 +55,7 @@ class QJZPoster:
             self._date[:4], self._date[4:6], self._date[6:]
         self._title = '未名起居注 {}年{}月{}日'.format(
             self._year, self._month, self._day)
+        self._origin_title = self._title
         self._txt_file = os.path.join('QJZ@{}'.format(self._date), 
                                       'QJZ@{}.txt'.format(self._date))
         self._seed_file = '{}.txt'.format(self._date)
@@ -129,12 +131,36 @@ class QJZPoster:
         self._bdwm.add_new_collection(
             board_name, postid, threadid, 
             '{}/{}'.format(self._WMREVIEW_COLLECTION_PATH, sub_path))
-    
+
+    @classmethod
+    def _get_title_length(cls, title):
+        length = len(title)
+        utf8_length = len(title.encode('utf-8'))
+        return (utf8_length + length) / 2
+
+    def _maybe_change_title(self):
+        while True:
+            ans = input('发帖标题为：【{}】，是否修改？(yes/No)'.format(self._title))
+            if ans and ans[0] in ['y', 'Y']:
+                print('请补齐小标题（不超过10个汉字或20个字母，若不需要小标题可留空）：')
+                new_suffix = input(self._origin_title + ' ')
+                while self._get_title_length(new_suffix) > self._MAXIMUM_TITLE_LENGTH:
+                    print('小标题过长，请重新输入：')
+                    new_suffix = input(self._origin_title + ' ')
+
+                if new_suffix:
+                    self._title = self._origin_title + ' ' + new_suffix
+                else:
+                    self._title = self._origin_title
+            else:
+                break
+
     def _auto_post_pipeline(self, num, reviewer=None):
         """自动发帖的工序"""
+        self._maybe_change_title()
         board_name = self._BOARD_NAME_MAP[num]
         postid, threadid = self._create_post(board_name)
-        
+
         if num == 0:
             self._operate_post(board_name, postid)
             self._forward_to_three_boards(board_name, postid)
@@ -151,7 +177,6 @@ class QJZPoster:
                 ans = input('请输入y或n！')
             if ans[0] in ['y', 'Y']:
                 print('请根据校对建议，修改好电脑上的{}文件！'.format(self._txt_file))
-                input('按任意键正式出刊~')
                 self._auto_post_pipeline(0)
 
     def main(self):
