@@ -10,6 +10,7 @@ import base64
 import getpass
 import os
 import re
+import traceback
 
 from BDWM import BDWM
 from QJZCrawler import QJZCrawler
@@ -206,6 +207,7 @@ class QJZPoster:
             try:
                 reviewer = editor_main(self._date)
             except Exception:
+                print(traceback.format_exc())
                 ans = input('院士脚本报错，可能是种子文件格式有误~\n'
                             '请【将种子文件{}修改正确后】输入y重跑脚本；按任意键退出程序:'.format(self._seed_file))
                 if ans and ans[0] in ['y', 'Y']:
