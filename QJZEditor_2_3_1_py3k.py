@@ -41,7 +41,7 @@ def sepaFile(filename, termmode):
         for i in seedcontent: # 全部转写到备份文件
             backup.write(i)
         oriFile.close()
-        print( u'已将原文档备份为'+filename+u'uft8.txt，存储在同一目录下。按任意键继续。')
+        print( u'已将原文档备份为'+filename+u'utf8.txt，存储在同一目录下。按任意键继续。')
         input('')
         backup.close()
         seedconvert = [] # 放置转码后的内容
@@ -77,7 +77,6 @@ def sepaFile(filename, termmode):
                     linenum += 1 # 光标下移
                     if (linenum == 1): # 第二行的位置找分区名称
                         groupchar = linebuff[6] # 分区名称存起来
-                        #print linebuff[18]
                         if len(linebuff)>12 : # 如果文件名有"kong"/"void"，则一定超长
                             if linebuff[13] == 'k':
                                 kong = 1
@@ -186,7 +185,7 @@ def finalLeft(grp, ansitemp):
 def chkpunct(chkstr, grp):
     punctlist = [u'm', u'，', u'。', u'？', u'！', u'；', u'…'] # 所有可接受的标点符号
     punct = chkstr[-1:] # 行末的字符
-    if (punct in punctlist) == False: # 不在列表里
+    if punct not in punctlist: # 不在列表里
         print( u'####################')
         print( u'警告！请注意'+grp+u'区以下内容的行末标点是否出错：')
         print( chkstr[1:] )# 不包含预留的m或_
