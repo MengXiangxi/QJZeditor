@@ -5,7 +5,6 @@
 # 变量名也随便搞了
 # 我还给你用中文注释了，我简直太贴心了啊
 # 作者孟祥溪，mengxiangxibme^O^gmail.com
-# last commit: 20200919
 #
 ##################### 注意！#######################
 # 该版本可用于Python 3，但未经严格测试，只作应急使用 #
@@ -781,8 +780,8 @@ def main(QJZ_date=''):
     footerfile = codecs.open(os.path.join('QJZ@'+processFile, 'footer'+processFile+'.txt'), 'w', 'utf-8')
     footerfile.write(ansitemp[223].strip()+coloring(chiefedname, editorcolordict)+'\r\n') # 第一行写入主编ID
     footerfile.write(ansitemp[224].strip()+line1+'\r\n') # 第二行写入采编第一行
-    footerfile.write(ansitemp[225].strip()+'           '+line2+'\r\n') # 采编第二行
-    footerfile.write(ansitemp[226].strip()+'            '+line3+'\r\n') # 采编第三行
+    footerfile.write(ansitemp[225].strip()+'         '+line2+'\r\n') # 采编第二行
+    footerfile.write(ansitemp[226].strip()+'         '+line3+'\r\n') # 采编第三行
     for i in range(227,230): # 连续写入
         footerfile.write(ansitemp[i])
     footerfile.write(ansitemp[230].strip()+coloring(proofname, editorcolordict)+'\r\n') # 校对ID
