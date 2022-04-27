@@ -1,11 +1,11 @@
 # QJZeditor
-x
+
 This is a project for the BBS site in Peking University, BDWM BBS. For the sake of the target users, all documentations as well as code comments and outputs are in Chinese.
 
 Please contact the developer for futher information. Thank you!
 
 ## 已知错误
-p
+
 * **解压缩的目标文件路径中不能有中文。建议仅使用大小写罗马字母和下划线命名文件夹，且不要用空格。**
 
 ## 说明
