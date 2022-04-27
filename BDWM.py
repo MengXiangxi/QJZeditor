@@ -6,6 +6,7 @@ Created on Mon Mar 23 21:37:13 2020
 @author: KakaHiguain@BDWM
 """
 
+from datetime import datetime
 from hashlib import md5
 import json
 import requests
@@ -65,12 +66,14 @@ class BDWM:
         return 'https://{}/v2/{}.php'.format(self._HOST, action_name)
         
     def _login(self):
-        token = md5('{1}{0}{1}'.format(self._id, self._passwd).encode('utf8'))
+        timestamp = int(datetime.timestamp(datetime.now()))
+        token = md5('{1}{0}{2}{1}'.format(self._id, self._passwd, timestamp).encode('utf8'))
         data = {
             "username": self._id,
             "password": self._passwd,
             "keepalive": '0',
-            "t": token.hexdigest()
+            "t": token.hexdigest(),
+            "time": str(timestamp),
         }
         self._get_response_data('ajax/login', data, '登录')
         
