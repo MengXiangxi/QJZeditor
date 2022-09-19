@@ -1,4 +1,5 @@
 *.txt
+setting
 /**/
 .DS_Store
 .initialized
