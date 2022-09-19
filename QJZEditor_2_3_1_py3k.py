@@ -442,7 +442,7 @@ def main(QJZ_date=''):
     # 从Editors.ans载入配置信息和排班表，建立字典
     chiefeddict = {} # 初始化主编排班的字典
     proofdict = {} # 初始化校对排班的字典
-    with open('setting.txt', 'r') as setting_file:
+    with open('setting', 'r') as setting_file:
         termmode = setting_file.readline().strip()  # 第一行存储Term类型
         chiefedname = setting_file.readline().strip()  # 第二行存储默认主编
     with open('Editors.ans', 'r') as editor_file:

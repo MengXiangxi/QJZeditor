@@ -226,7 +226,7 @@ def initialize(editoraddlist, editordictupper):
         input('')
         sys.exit()
 
-    with open('setting.txt', 'w') as setting_file:
+    with open('setting', 'w') as setting_file:
         setting_file.write(termmode + '\n')
         setting_file.write(chiefedname + '\n')
     with open('Editors.ans', 'w') as editor_file:
