@@ -442,17 +442,14 @@ def main(QJZ_date=''):
     # 从Editors.ans载入配置信息和排班表，建立字典
     chiefeddict = {} # 初始化主编排班的字典
     proofdict = {} # 初始化校对排班的字典
-    editoraddbook = open('Editors.ans','r')
-    termmode = editoraddbook.readline().strip() # 第一行存储Term类型
-    chiefedname = editoraddbook.readline().strip() # 第二行存储默认主编
-    for i in range(0,4): # 3-6行存储周一到周四的主编和采编
-        dutybuff = editoraddbook.readline().strip() # 暂存
-        chiefeddict[i] = dutybuff.split(' ')[0] # 主编
-        proofdict[i] = dutybuff.split(' ')[1] # 采编
-    dutybuff = editoraddbook.readline().strip() # 第七行存储周六的主编和采编
-    chiefeddict[5] = dutybuff.split(' ')[0] # 主编
-    proofdict[5] = dutybuff.split(' ')[1] # 采编
-    editoraddbook.close()
+    with open('setting.txt', 'r') as setting_file:
+        termmode = setting_file.readline().strip()  # 第一行存储Term类型
+        chiefedname = setting_file.readline().strip()  # 第二行存储默认主编
+    with open('Editors.ans', 'r') as editor_file:
+        for i in range(4):  # 1-4行存储周一到周四的主编和采编
+            chiefeddict[i], proofdict[i] = editor_file.readline().strip().split(' ')
+        # 第五行存储周六的主编和采编
+        chiefeddict[5], proofdict[5] = editor_file.readline().strip().split(' ')
 
     # 从Editors.ans载入人员信息，建立字典
     # TODO(KakaHiguain): This part is in a mix, need to combine this with the last part.

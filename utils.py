@@ -225,12 +225,14 @@ def initialize(editoraddlist, editordictupper):
         print(u'放弃初始化结果。下次运行程序时再次初始化。按任意键退出。')
         input('')
         sys.exit()
-    editoraddlist[0] = termmode+'\n'  # 强行重写列表第一行
-    editoraddlist[1] = chiefedname+'\n'  # 强行重写列表第二行
-    editoraddbook = open('Editors.ans', 'w')
-    for i in editoraddlist:  # 全部写回Editor.ans
-        editoraddbook.write(i)
-    editoraddbook.close()
+
+    with open('setting.txt', 'w') as setting_file:
+        setting_file.write(termmode + '\n')
+        setting_file.write(chiefedname + '\n')
+    with open('Editors.ans', 'w') as editor_file:
+        for editor in editoraddlist:  # 全部写回Editor.ans
+            editor_file.write(editor)
+
     print(u'初始化成功！现在可以开始使用本程序了！按任意键继续。')
     input('')
     return termmode, chiefedname
@@ -240,8 +242,9 @@ def get_editors_info():
     with open('Editors.ans', 'r') as f:
         editorcolordict = {}  # 构建一个ID颜色字典
         editoraddlist = f.readlines()
-        for i in range(7, len(editoraddlist)):  # 写入信息
-            editorcolordict[editoraddlist[i].strip().split(' ')[0]] = editoraddlist[i].strip().split(' ')[1]
+        for i in range(5, len(editoraddlist)):  # 写入信息
+            editor, color = editoraddlist[i].strip().split(' ')
+            editorcolordict[editor] = color
     # 从ID颜色字典建立一个全部字母大写的ID与原ID的映射字典，方便处理大小写
     editordictupper = {}  # 全大写ID字典
     for i in editorcolordict:
