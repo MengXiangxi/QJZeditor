@@ -668,27 +668,29 @@ def main(QJZ_date=''):
     for i in editor2line[1]: # 输出第一行
         editorbuffer += i+' '
     print( editorbuffer) # 输出第二行
-    print( u'按三行排列采编的效果如下：')
-    editor3line = divide3lines(editorlist) # 两行效果
-    editorbuffer = ''  # 清空buffer
-    for i in editor3line[0]:
-        editorbuffer += i+' '
-    print( editorbuffer )# 输出第一行
-    editorbuffer = '' # 清空buffer
-    for i in editor3line[1]:
-        editorbuffer += i+' '
-    print( editorbuffer )# 输出第二行
-    editorbuffer = '' # 清空buffer
-    for i in editor3line[2]:
-        editorbuffer += i+' '
-    print( editorbuffer )# 输出第三行
-    print( u'默认按两行排列，是否更改为按三行排列？（y/N）')
-    changeto3lines = input('')
-    changeto3lines += '_'
-    if changeto3lines[0] == 'y' or changeto3lines[0] == 'Y':
-        editorlinechoice = 3
-    else:
-        editorlinechoice = 2
+    editorlinechoice = 2
+    if len(editorlist) >= 3:
+        print( u'按三行排列采编的效果如下：')
+        editor3line = divide3lines(editorlist) # 两行效果
+        editorbuffer = ''  # 清空buffer
+        for i in editor3line[0]:
+            editorbuffer += i+' '
+        print( editorbuffer )# 输出第一行
+        editorbuffer = '' # 清空buffer
+        for i in editor3line[1]:
+            editorbuffer += i+' '
+        print( editorbuffer )# 输出第二行
+        editorbuffer = '' # 清空buffer
+        for i in editor3line[2]:
+            editorbuffer += i+' '
+        print( editorbuffer )# 输出第三行
+        print( u'默认按两行排列，是否更改为按三行排列？（y/N）')
+        changeto3lines = input('')
+        changeto3lines += '_'
+        if changeto3lines[0] == 'y' or changeto3lines[0] == 'Y':
+            editorlinechoice = 3
+        else:
+            editorlinechoice = 2
 
     # 准备写入
     line1 = '' # 存放渲染后的第一行
