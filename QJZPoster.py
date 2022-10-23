@@ -23,8 +23,6 @@ class QJZPoster:
     _BOARD_NAME_MAP = ['WMReview', 'WMQJZ', 'Test']
     # WMReview版精华区“历期起居注”的路径
     _WMREVIEW_COLLECTION_PATH = 'groups/GROUP_0/WMReview/D5448A5D2'
-    # 转到BBSInfo时要加上这一句
-    _FORWARD_POST_HEADER = '原文由 WMWZ 发表在 WMReview 版 >>>\n'
     _INITIALIZE_FILE = os.path.join(os.path.dirname(__file__), '.initialized')
     _MAXIMUM_TITLE_LENGTH = 20
 
@@ -113,10 +111,13 @@ class QJZPoster:
         bbsinfo_page = self._bdwm.get_board_page('BBSInfo', mode='single')
         pattern = r'data-itemid="([0-9]*)"'
         bbsinfo_postid = int(re.search(pattern, bbsinfo_page).group(1))
+        # 修改转发头为Term下的转发格式
+        with open(os.path.join('header.ans'), 'r', encoding='utf8') as f:
+           FORWARD_POST_HEADER = f.read()
         self._bdwm.edit_post('BBSInfo', 
                              bbsinfo_postid, 
                              self._title, 
-                             self._FORWARD_POST_HEADER + self._post_content_string,
+                             FORWARD_POST_HEADER + self._post_content_string,
                              signature=0)
             
     def _add_into_collection(self, board_name, postid, threadid):
