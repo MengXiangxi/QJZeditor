@@ -20,9 +20,14 @@ Please contact the developer for futher information. Thank you!
 
 ## 对主编
 
-请先阅读`Readme.txt`中的内容。
+~~请先阅读`Readme.txt`中的内容。~~
 
-请按照`QJZeditor_2_2.pdf`中的使用方法进行操作。注意[该文档](https://github.com/MengXiangxi/QJZeditor/wiki/QJZEditor-2.2-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)已经过时了，但是作者一直没有更新。实际上这个文档仍然很有参考价值。
+~~请按照`QJZeditor_2_2.pdf`中的使用方法进行操作。~~请按照起居注版面置顶帖中的使用方法进行操作。注意[该文档](https://github.com/MengXiangxi/QJZeditor/wiki/QJZEditor-2.2-%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)已经过时了，但是作者一直没有更新。实际上这个文档仍然很有参考价值。
+
+>* 修改主编/校对方法：  打开Editors.ans文件（右键->打开方式->选择其他应用->记事本），修改前五行 分别对应星期一/二/三/四/六的主编/校对
+>* 增加采编  打开Editors.ans文件 在第六行开始按格式输入 id（空格）1/2/3  数字代表男/女/保密,与BBS内的保持一致  注意最后不要有多余空行
+>* 当前重置主编方法： 删去文件夹内的 .initialized  文件后 重新执行 python3 QJZPoster.py
+
 
 [点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/py3k.zip)
 

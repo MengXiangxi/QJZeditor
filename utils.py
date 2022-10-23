@@ -188,6 +188,7 @@ def initialize(editoraddlist, editordictupper):
             if initchiefname == '0':
                 break
         chiefedname = convert_editor(initchiefname, editordictupper)
+    ''' 由于采用自动发送 不再需要对term做区分
     print(u'好厉害！你已经完成了第一步啦！下面是第二步，选择一个你常用的Telnet终端（Term）。')
     print(u'你有三个选项：FTerm（F）、CTerm（C）或者Welly（W）。')
     print(u'下面请输入你常用Term的名称（英文）或首字母：')
@@ -203,11 +204,15 @@ def initialize(editoraddlist, editordictupper):
         termmode = 'w'
     elif termname[0] == 'f' or termname[0] == 'F':
         termmode = 'f'
+    '''
+    termmode = 'w'  
+
     print(u'恭喜你！初始化已经完成了，你的选项如下：')
     if chiefedname[0] == '0':
         print(u'你选择每次手动输入主编ID。')
     else:
         print(u'默认的主编ID是：'+chiefedname)
+    '''
     if termmode == 'c':
         print(u'默认的终端是：CTerm。')
     elif termmode == 'f':
@@ -218,6 +223,7 @@ def initialize(editoraddlist, editordictupper):
         print(u'Term选择遇到未知错误（2），请联系作者。')
         input('')
         sys.exit()
+    '''
     print(u'是否放弃初始化结果？（yes/No）（Tips：按回车相当于‘No’，程序继续。各处皆相同。）')
     initok = input('')
     initok += '_'
