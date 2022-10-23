@@ -112,7 +112,7 @@ class QJZPoster:
         pattern = r'data-itemid="([0-9]*)"'
         bbsinfo_postid = int(re.search(pattern, bbsinfo_page).group(1))
         # 修改转发头为Term下的转发格式
-        with open(os.path.join('header.txt'), 'r', encoding='utf8') as f:
+        with open(os.path.join('header.ans'), 'r', encoding='utf8') as f:
            FORWARD_POST_HEADER = f.read()
         self._bdwm.edit_post('BBSInfo', 
                              bbsinfo_postid, 
