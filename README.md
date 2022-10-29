@@ -6,7 +6,7 @@ Please contact the developer for futher information. Thank you!
 
 ## 更新说明
 
-本项目目前已经由社区开发者（ @KakaHiguain ， @houkaihua ）继续维护。推荐使用houkaihua发布的[编译版本](https://github.com/houkaihua/QJZeditor/releases/tag/%E5%AE%87%E5%AE%99%E8%B6%85%E7%BA%A7%E6%97%A0%E6%95%8Cwindows%E6%89%93%E5%8C%85%E7%89%88)。
+本项目目前已经由社区开发者（ @KakaHiguain ， @houkaihua ）继续维护。推荐使用houkaihua发布的[编译版本](https://github.com/houkaihua/QJZeditor/releases/tag/20221022-windows)。
 
 ----
 
