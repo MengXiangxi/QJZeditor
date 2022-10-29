@@ -117,7 +117,7 @@ class QJZPoster:
         self._bdwm.edit_post('BBSInfo', 
                              bbsinfo_postid, 
                              self._title, 
-                             FORWARD_POST_HEADER + self._post_content_string,
+                             FORWARD_POST_HEADER + '\n' + self._post_content_string,
                              signature=0)
             
     def _add_into_collection(self, board_name, postid, threadid):
