@@ -33,6 +33,7 @@ Please contact the developer for futher information. Thank you!
 >* 修改主编/校对方法：  打开Editors.ans文件（右键->打开方式->选择其他应用->记事本），修改前五行 分别对应星期一/二/三/四/六的主编/校对
 >* 增加采编  打开Editors.ans文件 在第六行开始按格式输入 id（空格）1/2/3  数字代表男/女/保密,与BBS内的保持一致  注意最后不要有多余空行
 >* 当前重置主编方法： 删去文件夹内的 .initialized  文件后 重新执行 python3 QJZPoster.py
+>* 当前手动修改版面目录： 修改boardlist.ans 文件 增添新行：版面英文名 所在分区 是否为仅登陆可见（0-游客可见 1-仅登录可见）
 
 
 [点此下载zip压缩包。](https://github.com/MengXiangxi/QJZeditor/archive/py3k.zip)
