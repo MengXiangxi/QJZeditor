@@ -193,7 +193,7 @@ def chkpunct(chkstr, grp):
         input('')
 
 def chkboardsingle(boardname, grp, pubboarddict, priboarddict):
-    boardname = boardname.decode()
+    boardname = boardname.decode()  ## 这里未知功能 
     if pubboarddict.get(boardname,0) == 0:
         if priboarddict.get(boardname,0) == 0:
             print( u'####################')
@@ -461,21 +461,22 @@ def main(QJZ_date=''):
     editorcolordict, editoraddlist, editordictupper = get_editors_info()
 
     # 打开版面列表
-    if os.path.isfile('boardlist.csv'):
-        boardnamefile = open('boardlist.csv','rU')
+    # boardlist 格式说明：
+    # 版面英文名 所在分区 是否为仅登陆可见（0-游客可见 1-仅登录可见）
+    if os.path.isfile('boardlist.ans'):
+        boardnamefile = open('boardlist.ans','rU')
         boardnamebuffer = boardnamefile.readlines()
-        for i in range(0, len(boardnamebuffer)):
-            if boardnamebuffer[i].strip() == '-':
-                boardnamecut = i
-                break
         pubboarddict = {}
-        for i in range(0,boardnamecut):
-            pubboarddict[boardnamebuffer[i].strip().split(',')[0]] = boardnamebuffer[i].strip().split(',')[1]
         priboarddict = {}
-        for i in range(boardnamecut+1, len(boardnamebuffer)):
-            priboarddict[boardnamebuffer[i].strip().split(',')[0]] = boardnamebuffer[i].strip().split(',')[1]
+        for i in range(0, len(boardnamebuffer)):
+            line =  boardnamebuffer[i].strip().split(' ')
+            if(line[2] == '0'):
+                pubboarddict[line[0]]=line[1]
+            else:
+                priboarddict[line[0]]=line[1]
+
     else:
-        print(u'没有找到boardlist.csv，请运行QJZboardlist_x_x.py程序获取版名列表。')
+        print(u'没有找到boardlist.ans，请运行BDWM_boardlist.exe(py)程序获取版名列表。')
         print(u'按任意键退出。')
         input('')
         sys.exit()
